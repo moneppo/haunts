@@ -7,12 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		967A0B781AC480050085569D /* BlockSeanceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967A0B771AC480050085569D /* BlockSeanceButton.swift */; };
 		96F1F9951AC30E5900A3E6DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1F9941AC30E5900A3E6DB /* AppDelegate.swift */; };
 		96F1F9971AC30E5900A3E6DB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1F9961AC30E5900A3E6DB /* ViewController.swift */; };
 		96F1F99A1AC30E5900A3E6DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96F1F9981AC30E5900A3E6DB /* Main.storyboard */; };
 		96F1F99C1AC30E5900A3E6DB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96F1F99B1AC30E5900A3E6DB /* Images.xcassets */; };
 		96F1F99F1AC30E5900A3E6DB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96F1F99D1AC30E5900A3E6DB /* LaunchScreen.xib */; };
 		96F1F9AB1AC30E5A00A3E6DB /* HauntsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1F9AA1AC30E5A00A3E6DB /* HauntsTests.swift */; };
+		96F1F9B51AC30EFF00A3E6DB /* SeanceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1F9B41AC30EFF00A3E6DB /* SeanceButton.swift */; };
+		96F1F9B71AC3289500A3E6DB /* PeerIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1F9B61AC3289500A3E6DB /* PeerIcon.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		967A0B771AC480050085569D /* BlockSeanceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockSeanceButton.swift; sourceTree = "<group>"; };
 		96F1F98F1AC30E5900A3E6DB /* Haunts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Haunts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96F1F9931AC30E5900A3E6DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96F1F9941AC30E5900A3E6DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -36,6 +40,8 @@
 		96F1F9A41AC30E5A00A3E6DB /* HauntsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HauntsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		96F1F9A91AC30E5A00A3E6DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96F1F9AA1AC30E5A00A3E6DB /* HauntsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HauntsTests.swift; sourceTree = "<group>"; };
+		96F1F9B41AC30EFF00A3E6DB /* SeanceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeanceButton.swift; sourceTree = "<group>"; };
+		96F1F9B61AC3289500A3E6DB /* PeerIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeerIcon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,9 +83,12 @@
 		96F1F9911AC30E5900A3E6DB /* Haunts */ = {
 			isa = PBXGroup;
 			children = (
+				967A0B771AC480050085569D /* BlockSeanceButton.swift */,
+				96F1F9B41AC30EFF00A3E6DB /* SeanceButton.swift */,
 				96F1F9941AC30E5900A3E6DB /* AppDelegate.swift */,
 				96F1F9961AC30E5900A3E6DB /* ViewController.swift */,
 				96F1F9981AC30E5900A3E6DB /* Main.storyboard */,
+				96F1F9B61AC3289500A3E6DB /* PeerIcon.swift */,
 				96F1F99B1AC30E5900A3E6DB /* Images.xcassets */,
 				96F1F99D1AC30E5900A3E6DB /* LaunchScreen.xib */,
 				96F1F9921AC30E5900A3E6DB /* Supporting Files */,
@@ -213,6 +222,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				96F1F9971AC30E5900A3E6DB /* ViewController.swift in Sources */,
+				967A0B781AC480050085569D /* BlockSeanceButton.swift in Sources */,
+				96F1F9B51AC30EFF00A3E6DB /* SeanceButton.swift in Sources */,
+				96F1F9B71AC3289500A3E6DB /* PeerIcon.swift in Sources */,
 				96F1F9951AC30E5900A3E6DB /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -407,6 +419,7 @@
 				96F1F9B01AC30E5A00A3E6DB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		96F1F9B11AC30E5A00A3E6DB /* Build configuration list for PBXNativeTarget "HauntsTests" */ = {
 			isa = XCConfigurationList;
@@ -415,6 +428,7 @@
 				96F1F9B31AC30E5A00A3E6DB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
