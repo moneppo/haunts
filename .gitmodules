@@ -1,0 +1,3 @@
+[submodule "Haunts/PeerKit"]
+	path = Haunts/PeerKit
+	url = https://github.com/jpsim/PeerKit.git

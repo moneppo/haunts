@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		960189B51AC758D700D7CBFF /* CanvasView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960189B41AC758D700D7CBFF /* CanvasView2.swift */; };
 		967A0B781AC480050085569D /* BlockSeanceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967A0B771AC480050085569D /* BlockSeanceButton.swift */; };
+		969499A21AC480F200841E40 /* PeerKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9694999E1AC480CD00841E40 /* PeerKit.framework */; };
+		969499A31AC480F200841E40 /* PeerKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9694999E1AC480CD00841E40 /* PeerKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		969499A81AC6576E00841E40 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969499A71AC6576E00841E40 /* CanvasView.swift */; };
 		96F1F9951AC30E5900A3E6DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1F9941AC30E5900A3E6DB /* AppDelegate.swift */; };
 		96F1F9971AC30E5900A3E6DB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1F9961AC30E5900A3E6DB /* ViewController.swift */; };
 		96F1F99A1AC30E5900A3E6DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96F1F9981AC30E5900A3E6DB /* Main.storyboard */; };
@@ -19,6 +23,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		9694999D1AC480CD00841E40 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 969499981AC480CD00841E40 /* PeerKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E89FD6C01A0C3CDC00C2FEF7;
+			remoteInfo = PeerKit;
+		};
+		9694999F1AC480CD00841E40 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 969499981AC480CD00841E40 /* PeerKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E89FD6CB1A0C3CDC00C2FEF7;
+			remoteInfo = PeerKitTests;
+		};
+		969499A41AC480F200841E40 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 969499981AC480CD00841E40 /* PeerKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = E89FD6BF1A0C3CDC00C2FEF7;
+			remoteInfo = PeerKit;
+		};
 		96F1F9A51AC30E5A00A3E6DB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 96F1F9871AC30E5900A3E6DB /* Project object */;
@@ -28,8 +53,25 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		969499A61AC480F200841E40 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				969499A31AC480F200841E40 /* PeerKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		960189B41AC758D700D7CBFF /* CanvasView2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvasView2.swift; sourceTree = "<group>"; };
 		967A0B771AC480050085569D /* BlockSeanceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockSeanceButton.swift; sourceTree = "<group>"; };
+		969499981AC480CD00841E40 /* PeerKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PeerKit.xcodeproj; path = Haunts/PeerKit/PeerKit.xcodeproj; sourceTree = "<group>"; };
+		969499A71AC6576E00841E40 /* CanvasView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		96F1F98F1AC30E5900A3E6DB /* Haunts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Haunts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96F1F9931AC30E5900A3E6DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96F1F9941AC30E5900A3E6DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				969499A21AC480F200841E40 /* PeerKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,9 +105,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		969499991AC480CD00841E40 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9694999E1AC480CD00841E40 /* PeerKit.framework */,
+				969499A01AC480CD00841E40 /* PeerKitTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		96F1F9861AC30E5900A3E6DB = {
 			isa = PBXGroup;
 			children = (
+				969499981AC480CD00841E40 /* PeerKit.xcodeproj */,
 				96F1F9911AC30E5900A3E6DB /* Haunts */,
 				96F1F9A71AC30E5A00A3E6DB /* HauntsTests */,
 				96F1F9901AC30E5900A3E6DB /* Products */,
@@ -83,10 +136,12 @@
 		96F1F9911AC30E5900A3E6DB /* Haunts */ = {
 			isa = PBXGroup;
 			children = (
+				960189B41AC758D700D7CBFF /* CanvasView2.swift */,
 				967A0B771AC480050085569D /* BlockSeanceButton.swift */,
 				96F1F9B41AC30EFF00A3E6DB /* SeanceButton.swift */,
 				96F1F9941AC30E5900A3E6DB /* AppDelegate.swift */,
 				96F1F9961AC30E5900A3E6DB /* ViewController.swift */,
+				969499A71AC6576E00841E40 /* CanvasView.swift */,
 				96F1F9981AC30E5900A3E6DB /* Main.storyboard */,
 				96F1F9B61AC3289500A3E6DB /* PeerIcon.swift */,
 				96F1F99B1AC30E5900A3E6DB /* Images.xcassets */,
@@ -131,10 +186,12 @@
 				96F1F98B1AC30E5900A3E6DB /* Sources */,
 				96F1F98C1AC30E5900A3E6DB /* Frameworks */,
 				96F1F98D1AC30E5900A3E6DB /* Resources */,
+				969499A61AC480F200841E40 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				969499A51AC480F200841E40 /* PBXTargetDependency */,
 			);
 			name = Haunts;
 			productName = Haunts;
@@ -188,6 +245,12 @@
 			mainGroup = 96F1F9861AC30E5900A3E6DB;
 			productRefGroup = 96F1F9901AC30E5900A3E6DB /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 969499991AC480CD00841E40 /* Products */;
+					ProjectRef = 969499981AC480CD00841E40 /* PeerKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				96F1F98E1AC30E5900A3E6DB /* Haunts */,
@@ -195,6 +258,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		9694999E1AC480CD00841E40 /* PeerKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = PeerKit.framework;
+			remoteRef = 9694999D1AC480CD00841E40 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		969499A01AC480CD00841E40 /* PeerKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = PeerKitTests.xctest;
+			remoteRef = 9694999F1AC480CD00841E40 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		96F1F98D1AC30E5900A3E6DB /* Resources */ = {
@@ -222,7 +302,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				96F1F9971AC30E5900A3E6DB /* ViewController.swift in Sources */,
+				960189B51AC758D700D7CBFF /* CanvasView2.swift in Sources */,
 				967A0B781AC480050085569D /* BlockSeanceButton.swift in Sources */,
+				969499A81AC6576E00841E40 /* CanvasView.swift in Sources */,
 				96F1F9B51AC30EFF00A3E6DB /* SeanceButton.swift in Sources */,
 				96F1F9B71AC3289500A3E6DB /* PeerIcon.swift in Sources */,
 				96F1F9951AC30E5900A3E6DB /* AppDelegate.swift in Sources */,
@@ -240,6 +322,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		969499A51AC480F200841E40 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PeerKit;
+			targetProxy = 969499A41AC480F200841E40 /* PBXContainerItemProxy */;
+		};
 		96F1F9A61AC30E5A00A3E6DB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 96F1F98E1AC30E5900A3E6DB /* Haunts */;
@@ -350,6 +437,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Haunts/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -360,6 +448,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Haunts/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

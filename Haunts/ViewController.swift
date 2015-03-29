@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import PeerKit
+import MultipeerConnectivity
 
 let reuseIdentifier = "PeerCell"
 
@@ -15,8 +17,6 @@ class ViewController: UIViewController, UICollectionViewDataSource { //Collectio
     @IBOutlet var seanceButton : SeanceButton!
     @IBOutlet var blockButton : BlockSeanceButton!
     @IBOutlet var peerIcons : UICollectionView!
-    
-    var peers : [String]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,12 +24,24 @@ class ViewController: UIViewController, UICollectionViewDataSource { //Collectio
 
         self.peerIcons.backgroundColor = UIColor.blueColor()
         
-        self.peers = []
         self.peerIcons.dataSource = self
         self.peerIcons.reloadData()
         
+        setupPeerConnections()
+        PeerKit.transceive("com-moneppo-Wax")
+        
         // Register cell classes
         self.peerIcons.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+    }
+    
+    func setupPeerConnections() {
+        PeerKit.onConnect = { peer in
+           self.peerIcons.reloadData()
+        }
+        
+        PeerKit.onDisconnect = { peer in
+            self.peerIcons.reloadData()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,15 +49,17 @@ class ViewController: UIViewController, UICollectionViewDataSource { //Collectio
         // Dispose of any resources that can be recreated.
     }
     
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.peers.count
+        if let session = PeerKit.session {
+            return session.connectedPeers.count
+        } else {
+            return 0
+        }
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        //if let session = PeerKit.session {
+        //  session.connectedPeers
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as UICollectionViewCell
         
         // Configure the cell
