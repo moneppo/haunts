@@ -4,91 +4,58 @@
 //  Created by Michael Oneppo on 3/28/15.
 
 import UIKit
+import PeerKit
 
-func +(l:CGPoint, r:CGPoint) -> CGPoint {
-    return CGPoint(x: l.x + r.x, y: l.y + r.y)
+struct Point {
+    var p: CGPoint
+    var w: CGFloat
 }
 
-func -(l:CGPoint, r:CGPoint) -> CGPoint {
-    return CGPoint(x: l.x - r.x, y: l.y - r.y)
-}
-
-func *(l:CGPoint, r:CGFloat) -> CGPoint {
-    return CGPoint(x: l.x * r, y: l.y * r)
-}
-
-func /(l:CGPoint, r:CGFloat) -> CGPoint {
-    return CGPoint(x: l.x / r, y: l.y / r)
-}
-
-func mag(v:CGPoint) -> CGFloat {
-    return sqrt(v.x * v.x + v.y * v.y)
-}
-
-
-func mag2(v:CGPoint) -> CGFloat {
-    return v.x * v.x + v.y * v.y
-}
-
-func normalize(v:CGPoint) -> CGPoint {
-    let l = mag(v)
-    return v / l
-}
-
-func midPoint(p1: CGPoint, p2: CGPoint) -> CGPoint
-{
-    return CGPoint(x: (p1.x + p2.x) * 0.5, y: (p1.y + p2.y) * 0.5)
-}
-
-func clamp(f: CGFloat, min: CGFloat, max: CGFloat) -> CGFloat {
-    if f > max {
-        return max
-    }
-    
-    if f < min {
-        return min
-    }
-    
-    return f
+class Path {
+    var pts : [Point] = []
+    var color : UIColor = UIColor.blackColor()
 }
 
 class CanvasView2: UIView {
     
     let MIN_DIST = CGFloat(7.0)
-    let MIN_THICKNESS = CGFloat(3)
+    let MIN_THICKNESS = CGFloat(1)
     let MAX_THICKNESS = CGFloat(7)
-    let THICK_RATE = CGFloat(10.0)
-
+    let THICK_RATE = CGFloat(0.5)
+    
+    var paths : [UIBezierPath] = []
+    var currentPath: Path = Path()
+    var panStart : CGPoint = CGPoint.zeroPoint
+    var previousPoint : CGPoint = CGPoint.zeroPoint
+    
+    var minZoom : CGFloat = CGFloat(0.0)
+    var panBounds : CGRect = CGRect.infiniteRect
+    
     override func drawRect(rect: CGRect) {
         UIColor.blackColor().setFill()
         for p in paths {
             p.fill()
         }
         
-       let p = generateStroke()
-       p.fill()
+        let p = generateStroke(currentPath)
+        p.fill()
     }
     
-    var paths : [UIBezierPath] = []
-    var points: [CGPoint] = []
-    var pressures : [CGFloat] = []
-    var previousPoint : CGPoint = CGPoint.zeroPoint
-    
-    func generateStroke() -> UIBezierPath {
+    func generateStroke(p : Path) -> UIBezierPath {
         var path = UIBezierPath()
         
-        if points.count == 0 {
+        if p.pts.count == 0 {
             return path
         }
         
-        path.moveToPoint(points[0])
+        path.moveToPoint(p.pts[0].p)
         
         // Start forward
-        for var i = 1; i < points.count; i++ {
-            let p0 = points[i-1]
-            let p1 = points[i]
-            let pressure0 = pressures[i-1] * THICK_RATE
-            let pressure1 = pressures[i] * THICK_RATE
+        for var i = 1; i < p.pts.count; i++ {
+            let p0 = p.pts[i-1].p
+            let p1 = p.pts[i].p
+            let pressure0 = clamp(p.pts[i-1].w * THICK_RATE, MIN_THICKNESS, MAX_THICKNESS)
+            let pressure1 = clamp(p.pts[i].w * THICK_RATE, MIN_THICKNESS, MAX_THICKNESS)
             
             let direction = normalize(p0 - p1)
             let normal = CGPoint(x: direction.y, y: -direction.x)
@@ -100,14 +67,14 @@ class CanvasView2: UIView {
             path.addQuadCurveToPoint(midpoint, controlPoint: b)
         }
         
-        path.addLineToPoint(points[points.count-1])
+        path.addLineToPoint(p.pts[p.pts.count-1].p)
         
-        // Then go back. Something in here is broken
-        for var i = points.count-1; i > 0; i-- {
-            let p0 = points[i]
-            let p1 = points[i-1]
-            let pressure0 = clamp(pressures[i-1] * THICK_RATE, MIN_THICKNESS, MAX_THICKNESS)
-            let pressure1 = clamp(pressures[i] * THICK_RATE, MIN_THICKNESS, MAX_THICKNESS)
+        // Then go back
+        for var i = p.pts.count-1; i > 0; i-- {
+            let p0 = p.pts[i].p
+            let p1 = p.pts[i-1].p
+            let pressure0 = clamp(p.pts[i-1].w * THICK_RATE, MIN_THICKNESS, MAX_THICKNESS)
+            let pressure1 = clamp(p.pts[i].w * THICK_RATE, MIN_THICKNESS, MAX_THICKNESS)
             
             let direction = normalize(p0 - p1)
             let normal = CGPoint(x: direction.y, y: -direction.x)
@@ -122,52 +89,51 @@ class CanvasView2: UIView {
         return path
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-        if let touch = touches.anyObject() as UITouch? {
-            let currentPoint = touch.locationInView(self)
-            
+    func placeImage(img: UIImage) {
+    }
+    
+    func placePath(p: Path) {
+        paths.append(generateStroke(p))
+    }
+    
+    func panBegan(location : CGPoint, numTouches : Int) {
+        if numTouches == 1 {
             paths.append(UIBezierPath())
-            paths[paths.count-1].moveToPoint(currentPoint)
-            previousPoint = currentPoint
+            paths[paths.count-1].moveToPoint(location)
+            previousPoint = location
+        } else {
+            panStart = location
         }
     }
     
-    override func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
-        if let touch = touches.anyObject() as UITouch? {
-            let currentPoint = touch.locationInView(self)
-            
-            if (mag2(currentPoint - previousPoint) < MIN_DIST) {
+    func panMoved(location : CGPoint, numTouches : Int) {
+        if numTouches == 1 {
+            if (mag2(location - previousPoint) < MIN_DIST) {
                 return
             }
-            
-            points.append(currentPoint)
-            let velocity = mag(currentPoint - previousPoint) / MIN_DIST
-            pressures.append((touch.majorRadius + 0.1) * velocity)
-
-        /*  let direction = normalize(previousPoint - currentPoint)
-            let normal = CGPoint(x: direction.y, y: -direction.x)
-            touch.majorRadius
-            
-            let a = currentPoint + normal * 20//touch.majorRadius
-            let b = previousPoint + normal * 20//touch.majorRadius
-            
-            let midpoint = midPoint(a, b)
-            
-            
-            paths[paths.count-1].addQuadCurveToPoint(midpoint, controlPoint: b)*/
-            
-            previousPoint = currentPoint
+        
+            let velocity = mag(location - previousPoint) / MIN_DIST
+            let p = Point(p: location, w: velocity)
+            currentPath.pts.append(p)
+            previousPoint = location
             self.setNeedsDisplay()
+        } else {
+            self.center = self.center + location - panStart
         }
     }
     
-    override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
-        paths.append(generateStroke())
-        points = []
-        pressures = []
+    func panEnded(numTouches : Int) {
+        if numTouches < 2 {
+            paths.append(generateStroke(currentPath))
+            PeerKit.sendEvent("path", object: currentPath)
+            currentPath = Path()
+        }
     }
     
-    override func touchesCancelled(touches: NSSet!, withEvent event: UIEvent!) {
-        self.touchesEnded(touches, withEvent: event)
+    func pinchMoved(scale : CGFloat) {
+        let newScale = CGAffineTransformScale(self.transform, scale, scale)
+        if (newScale.a <= 1.0 && newScale.a >= self.minZoom) {
+            self.transform = newScale
+        }
     }
-}
+ }

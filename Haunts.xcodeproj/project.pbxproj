@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		960189B51AC758D700D7CBFF /* CanvasView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960189B41AC758D700D7CBFF /* CanvasView2.swift */; };
+		960189B71AC7B65300D7CBFF /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960189B61AC7B65300D7CBFF /* Math.swift */; };
+		960189B91AC8962B00D7CBFF /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960189B81AC8962B00D7CBFF /* Util.swift */; };
+		960189BB1AC9A64E00D7CBFF /* CameraButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960189BA1AC9A64E00D7CBFF /* CameraButton.swift */; };
 		967A0B781AC480050085569D /* BlockSeanceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967A0B771AC480050085569D /* BlockSeanceButton.swift */; };
 		969499A21AC480F200841E40 /* PeerKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9694999E1AC480CD00841E40 /* PeerKit.framework */; };
 		969499A31AC480F200841E40 /* PeerKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9694999E1AC480CD00841E40 /* PeerKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -69,6 +72,9 @@
 
 /* Begin PBXFileReference section */
 		960189B41AC758D700D7CBFF /* CanvasView2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvasView2.swift; sourceTree = "<group>"; };
+		960189B61AC7B65300D7CBFF /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
+		960189B81AC8962B00D7CBFF /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		960189BA1AC9A64E00D7CBFF /* CameraButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraButton.swift; sourceTree = "<group>"; };
 		967A0B771AC480050085569D /* BlockSeanceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockSeanceButton.swift; sourceTree = "<group>"; };
 		969499981AC480CD00841E40 /* PeerKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PeerKit.xcodeproj; path = Haunts/PeerKit/PeerKit.xcodeproj; sourceTree = "<group>"; };
 		969499A71AC6576E00841E40 /* CanvasView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
@@ -137,8 +143,11 @@
 			isa = PBXGroup;
 			children = (
 				960189B41AC758D700D7CBFF /* CanvasView2.swift */,
+				960189B81AC8962B00D7CBFF /* Util.swift */,
+				960189B61AC7B65300D7CBFF /* Math.swift */,
 				967A0B771AC480050085569D /* BlockSeanceButton.swift */,
 				96F1F9B41AC30EFF00A3E6DB /* SeanceButton.swift */,
+				960189BA1AC9A64E00D7CBFF /* CameraButton.swift */,
 				96F1F9941AC30E5900A3E6DB /* AppDelegate.swift */,
 				96F1F9961AC30E5900A3E6DB /* ViewController.swift */,
 				969499A71AC6576E00841E40 /* CanvasView.swift */,
@@ -302,12 +311,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				96F1F9971AC30E5900A3E6DB /* ViewController.swift in Sources */,
+				960189B91AC8962B00D7CBFF /* Util.swift in Sources */,
+				960189BB1AC9A64E00D7CBFF /* CameraButton.swift in Sources */,
 				960189B51AC758D700D7CBFF /* CanvasView2.swift in Sources */,
 				967A0B781AC480050085569D /* BlockSeanceButton.swift in Sources */,
 				969499A81AC6576E00841E40 /* CanvasView.swift in Sources */,
 				96F1F9B51AC30EFF00A3E6DB /* SeanceButton.swift in Sources */,
 				96F1F9B71AC3289500A3E6DB /* PeerIcon.swift in Sources */,
 				96F1F9951AC30E5900A3E6DB /* AppDelegate.swift in Sources */,
+				960189B71AC7B65300D7CBFF /* Math.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

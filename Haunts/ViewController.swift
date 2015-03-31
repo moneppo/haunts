@@ -12,11 +12,17 @@ import MultipeerConnectivity
 
 let reuseIdentifier = "PeerCell"
 
-class ViewController: UIViewController, UICollectionViewDataSource { //Collection
+class ViewController: UIViewController, UICollectionViewDataSource, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIGestureRecognizerDelegate {
     
     @IBOutlet var seanceButton : SeanceButton!
     @IBOutlet var blockButton : BlockSeanceButton!
     @IBOutlet var peerIcons : UICollectionView!
+    @IBOutlet var canvasView : CanvasView2!
+    
+    @IBOutlet var pinchRecognizer : UIPinchGestureRecognizer!
+    @IBOutlet var panRecognizer : UIPanGestureRecognizer!
+    
+    var imagePicker: UIImagePickerController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +35,12 @@ class ViewController: UIViewController, UICollectionViewDataSource { //Collectio
         
         setupPeerConnections()
         PeerKit.transceive("com-moneppo-Wax")
+
+        panRecognizer.delegate = self
+        pinchRecognizer.delegate = self
+        
+        canvasView.minZoom = min(canvasView.bounds.width / canvasView.superview!.bounds.width,
+                                 canvasView.bounds.height / canvasView.superview!.bounds.height)
         
         // Register cell classes
         self.peerIcons.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
@@ -41,6 +53,51 @@ class ViewController: UIViewController, UICollectionViewDataSource { //Collectio
         
         PeerKit.onDisconnect = { peer in
             self.peerIcons.reloadData()
+        }
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer,
+        shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+            return true
+    }
+    
+// MARK: Actions
+    
+    @IBAction func takePhoto(sender: UIButton) {
+        imagePicker =  UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .Camera
+        
+        presentViewController(imagePicker, animated: true, completion: nil)
+    }
+    
+    @IBAction func handlePan(rec : UIPanGestureRecognizer) {
+        switch(rec.state) {
+        case UIGestureRecognizerState.Began:
+            canvasView.panBegan(rec.locationInView(canvasView), numTouches: rec.numberOfTouches())
+            break
+        case UIGestureRecognizerState.Changed:
+            canvasView.panMoved(rec.locationInView(canvasView), numTouches: rec.numberOfTouches())
+            rec.setTranslation(CGPoint.zeroPoint, inView: canvasView)
+            break
+        case UIGestureRecognizerState.Ended:
+            canvasView.panEnded(rec.numberOfTouches())
+            break
+        default:
+            canvasView.panEnded(rec.numberOfTouches())
+            break
+        }
+    }
+    
+    @IBAction func handlePinch(rec : UIPinchGestureRecognizer) {
+        canvasView.pinchMoved(rec.scale)
+        rec.scale = 1.0
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+        imagePicker.dismissViewControllerAnimated(true, completion: nil)
+        if let img = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            canvasView.placeImage(img)
         }
     }
 
@@ -67,7 +124,5 @@ class ViewController: UIViewController, UICollectionViewDataSource { //Collectio
         
         return cell
     }
-
-
 }
 

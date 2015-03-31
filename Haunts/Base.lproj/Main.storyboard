@@ -17,29 +17,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EOa-0O-YQu" customClass="CanvasView2" customModule="Haunts" customModuleProvider="target">
-                                <rect key="frame" x="1" y="2" width="593" height="592"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EOa-0O-YQu" customClass="CanvasView2" customModule="Haunts" customModuleProvider="target">
+                                <rect key="frame" x="73" y="85" width="1024" height="1025"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="2048" id="5Xo-kB-XoT"/>
+                                    <constraint firstAttribute="width" constant="2048" id="fET-fa-kPW"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="sih-xW-BKM" appends="YES" id="W2e-C0-tTB"/>
+                                </connections>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jrv-8d-Rxp" customClass="SeanceButton" customModule="Haunts" customModuleProvider="target">
-                                <rect key="frame" x="10" y="20" width="48" height="48"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hbg-Jb-bxF" customClass="CameraButton" customModule="Haunts" customModuleProvider="target">
+                                <rect key="frame" x="10" y="544" width="48" height="48"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="48" id="MbK-jg-KpG"/>
-                                    <constraint firstAttribute="height" constant="48" id="n8s-3S-O3D"/>
+                                    <constraint firstAttribute="width" constant="48" id="FIt-aY-Sb9"/>
+                                    <constraint firstAttribute="height" constant="48" id="tyo-f8-QCs"/>
                                 </constraints>
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8pk-av-p6m" customClass="BlockSeanceButton" customModule="Haunts" customModuleProvider="target">
-                                <rect key="frame" x="10" y="76" width="48" height="48"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="48" id="kLD-2e-rKu"/>
-                                    <constraint firstAttribute="height" constant="48" id="tnc-LI-FD2"/>
-                                </constraints>
-                                <state key="normal">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                                <connections>
+                                    <action selector="takePhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qIZ-Lz-r29"/>
+                                </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Krz-1v-1oJ">
                                 <rect key="frame" x="66" y="20" width="518" height="48"/>
@@ -64,52 +64,102 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8pk-av-p6m" customClass="BlockSeanceButton" customModule="Haunts" customModuleProvider="target">
+                                <rect key="frame" x="10" y="76" width="48" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="48" id="kLD-2e-rKu"/>
+                                    <constraint firstAttribute="height" constant="48" id="tnc-LI-FD2"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jrv-8d-Rxp" customClass="SeanceButton" customModule="Haunts" customModuleProvider="target">
+                                <rect key="frame" x="10" y="20" width="48" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="48" id="MbK-jg-KpG"/>
+                                    <constraint firstAttribute="height" constant="48" id="n8s-3S-O3D"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
+                            <constraint firstAttribute="centerY" secondItem="EOa-0O-YQu" secondAttribute="centerY" id="17S-re-b36"/>
+                            <constraint firstAttribute="centerX" secondItem="EOa-0O-YQu" secondAttribute="centerX" id="2eQ-WE-fky"/>
                             <constraint firstAttribute="bottom" secondItem="EOa-0O-YQu" secondAttribute="bottom" constant="6" id="2nR-7Z-V9H"/>
                             <constraint firstAttribute="trailingMargin" secondItem="EOa-0O-YQu" secondAttribute="trailing" id="2uY-dS-cIb"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="EOa-0O-YQu" secondAttribute="bottom" id="8FL-tG-l5u"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Hbg-Jb-bxF" secondAttribute="bottom" constant="8" id="8gd-jF-gea"/>
                             <constraint firstItem="EOa-0O-YQu" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="2" id="Aby-n8-FxR"/>
                             <constraint firstItem="Krz-1v-1oJ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Cpc-Tk-F4T"/>
                             <constraint firstItem="Jrv-8d-Rxp" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-30" id="LNY-D0-uJO"/>
                             <constraint firstItem="EOa-0O-YQu" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Osg-hZ-g2t"/>
                             <constraint firstAttribute="trailing" secondItem="EOa-0O-YQu" secondAttribute="trailing" constant="6" id="Q0N-V5-VhP"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Krz-1v-1oJ" secondAttribute="bottom" constant="532" id="Qe5-a3-RQy"/>
+                            <constraint firstAttribute="centerY" secondItem="EOa-0O-YQu" secondAttribute="centerY" id="T3Z-Ig-3gW"/>
                             <constraint firstItem="Krz-1v-1oJ" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="Tml-qt-8KC"/>
                             <constraint firstItem="Jrv-8d-Rxp" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-6" id="UcB-Gn-5cq"/>
                             <constraint firstItem="8pk-av-p6m" firstAttribute="top" secondItem="Jrv-8d-Rxp" secondAttribute="bottom" constant="8" id="Wda-aq-TpV"/>
                             <constraint firstItem="Jrv-8d-Rxp" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="aKZ-yF-9RI"/>
+                            <constraint firstAttribute="centerX" secondItem="EOa-0O-YQu" secondAttribute="centerX" id="dpN-Q2-RaN"/>
                             <constraint firstItem="8pk-av-p6m" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="56" id="eHd-W2-Mnh"/>
                             <constraint firstItem="Jrv-8d-Rxp" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-6" id="jzw-Lt-ryZ"/>
                             <constraint firstItem="EOa-0O-YQu" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="1" id="kkd-Ie-DgY"/>
                             <constraint firstAttribute="trailingMargin" secondItem="EOa-0O-YQu" secondAttribute="trailing" id="qFC-Mk-IBC"/>
                             <constraint firstItem="Krz-1v-1oJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="50" id="s7s-aL-6G3"/>
                             <constraint firstItem="8pk-av-p6m" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-6" id="tkM-AF-SLm"/>
+                            <constraint firstItem="Hbg-Jb-bxF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-6" id="uWa-VK-f41"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="2uY-dS-cIb"/>
-                                <exclude reference="Osg-hZ-g2t"/>
-                                <exclude reference="qFC-Mk-IBC"/>
                                 <exclude reference="LNY-D0-uJO"/>
                                 <exclude reference="jzw-Lt-ryZ"/>
                                 <exclude reference="Wda-aq-TpV"/>
+                                <exclude reference="17S-re-b36"/>
+                                <exclude reference="2nR-7Z-V9H"/>
+                                <exclude reference="2uY-dS-cIb"/>
+                                <exclude reference="Aby-n8-FxR"/>
+                                <exclude reference="Osg-hZ-g2t"/>
+                                <exclude reference="Q0N-V5-VhP"/>
+                                <exclude reference="dpN-Q2-RaN"/>
+                                <exclude reference="kkd-Ie-DgY"/>
+                                <exclude reference="qFC-Mk-IBC"/>
                                 <exclude reference="8FL-tG-l5u"/>
                                 <exclude reference="Qe5-a3-RQy"/>
                             </mask>
                         </variation>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="pbd-Qt-5dU" appends="YES" id="9Te-GI-L8d"/>
+                        </connections>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="600"/>
                     <connections>
                         <outlet property="blockButton" destination="8pk-av-p6m" id="3ps-uC-y3y"/>
+                        <outlet property="canvasView" destination="EOa-0O-YQu" id="Nac-lp-N4I"/>
+                        <outlet property="panRecognizer" destination="sih-xW-BKM" id="scS-bt-f2F"/>
                         <outlet property="peerIcons" destination="Krz-1v-1oJ" id="7bq-mb-oiM"/>
+                        <outlet property="pinchRecognizer" destination="pbd-Qt-5dU" id="BPA-bu-Z7D"/>
                         <outlet property="seanceButton" destination="Jrv-8d-Rxp" id="ov3-vH-cAE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <pinchGestureRecognizer id="pbd-Qt-5dU">
+                    <connections>
+                        <action selector="handlePinch:" destination="BYZ-38-t0r" id="ZlF-eJ-7wd"/>
+                    </connections>
+                </pinchGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" maximumNumberOfTouches="2" id="sih-xW-BKM">
+                    <connections>
+                        <action selector="handlePan:" destination="BYZ-38-t0r" id="dWn-6P-4ue"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
+            <point key="canvasLocation" x="117" y="340"/>
         </scene>
     </scenes>
 </document>
