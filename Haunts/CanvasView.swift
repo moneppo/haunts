@@ -1,182 +1,206 @@
 //
 //  CanvasView.swift
-//  Haunts
 //
-//  Created by Michael Oneppo on 3/27/15.
-//  Copyright (c) 2015 moneppo. All rights reserved.
-//
-/*
+//  Created by Michael Oneppo on 3/28/15.
+
 import UIKit
-
-struct LineSegment
-{
-    var firstPoint : CGPoint
-    var secondPoint : CGPoint
-}
-
-
-func len_sq(p1 : CGPoint, p2 : CGPoint) -> Float
-{
-    let dx = p2.x - p1.x
-    let dy = p2.y - p1.y
-    return Float(dx * dx) + Float(dy * dy)
-}
-
-func clamp(value : Float, lower : Float, higher : Float) -> Float
-{
-    if (value < lower) {
-        return lower
-    }
-    
-    if (value > higher) {
-        return higher
-    }
-    
-    return value
-}
-
-let CAPACITY  = 100
-let FF = 0.2 as Float
-let LOWER  = 0.01 as Float
-let UPPER = 1.0 as Float
+import PeerKit
 
 class CanvasView: UIView {
-
-    var incrementalImage : UIImage!
-    var pts = [CGPoint?](count: 5, repeatedValue: nil)
-    var ctr : Int = 0
-    var pointsBuffer = [CGPoint?](count: CAPACITY, repeatedValue: nil)
-    var bufIdx : Int = 0
-    var isFirstTouchPoint : Bool = false
     
-    var lastSegmentOfPrev = LineSegment(firstPoint: CGPoint(x:0, y:0), secondPoint: CGPoint(x:0, y:0))
+    let hauntSize = CGFloat(3072)
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-        ctr = 0;
-        bufIdx = 0;
-        if let touch = touches.anyObject() as UITouch? {
-            pts[0] = touch.locationInView(self)
-        }
-        isFirstTouchPoint = true;
+    let MIN_DIST = CGFloat(7.0)
+    let MIN_THICKNESS = CGFloat(1)
+    let MAX_THICKNESS = CGFloat(7)
+    let THICK_RATE = CGFloat(0.5)
+    
+    //var paths : [UIBezierPath] = []
+    var currentPath: Path = Path()
+    var currentShapeLayer : CAShapeLayer! = CAShapeLayer()
+    var panStart : CGPoint = CGPoint.zeroPoint
+    var previousPoint : CGPoint = CGPoint.zeroPoint
+    
+    var minZoom : CGFloat = CGFloat(0.0)
+    var panBounds : CGRect = CGRect.infiniteRect
+    
+    var viewRect : CGRect = CGRect.zeroRect
+    
+    required init(coder : NSCoder){
+        super.init(coder: coder)
+        self.layer.addSublayer(currentShapeLayer)
+        self.alpha = 0
     }
     
-    override func touchesMoved(touches: NSSet, withEvent event : UIEvent) {
-        if let touch = touches.anyObject() as UITouch? {
-            let p = touch.locationInView(self)
+    func generateStroke(p : Path) -> UIBezierPath {
+        var path = UIBezierPath()
+        
+        if p.pts.count == 0 {
+            return path
+        }
+        
+        path.moveToPoint(p.pts[0].p)
+        
+        // Start forward
+        for var i = 1; i < p.pts.count; i++ {
+            let p0 = p.pts[i-1].p
+            let p1 = p.pts[i].p
+            let pressure0 = clamp(p.pts[i-1].w * THICK_RATE, MIN_THICKNESS, MAX_THICKNESS)
+            let pressure1 = clamp(p.pts[i].w * THICK_RATE, MIN_THICKNESS, MAX_THICKNESS)
+            
+            let direction = normalize(p0 - p1)
+            let normal = CGPoint(x: direction.y, y: -direction.x)
+            let a = p1 + normal * pressure1
+            let b = p0 + normal * pressure0
+            
+            let midpoint = midPoint(a, b)
+            
+            path.addQuadCurveToPoint(midpoint, controlPoint: b)
+        }
+        
+        path.addLineToPoint(p.pts[p.pts.count-1].p)
+        
+        // Then go back
+        for var i = p.pts.count-1; i > 0; i-- {
+            let p0 = p.pts[i].p
+            let p1 = p.pts[i-1].p
+            let pressure0 = clamp(p.pts[i-1].w * THICK_RATE, MIN_THICKNESS, MAX_THICKNESS)
+            let pressure1 = clamp(p.pts[i].w * THICK_RATE, MIN_THICKNESS, MAX_THICKNESS)
+            
+            let direction = normalize(p0 - p1)
+            let normal = CGPoint(x: direction.y, y: -direction.x)
+            let a = p1 + normal * pressure1
+            let b = p0 + normal * pressure0
+            
+            let midpoint = midPoint(a, b)
+            
+            path.addQuadCurveToPoint(midpoint, controlPoint: b)
+        }
+        
+        return path
+    }
+    
+    func placeImage(img: UIImage, at: CGPoint) {
+    }
+    
+    func placePath(p: Path) {
+        let strokeLayer = CAShapeLayer()
+        strokeLayer.path = generateStroke(p).CGPath
+        strokeLayer.fillColor = p.color.CGColor
+        self.layer.addSublayer(strokeLayer)
+    }
+    
+    func updateViewRect() {
+        let minScaleX = self.superview!.bounds.width / hauntSize 
+        let minScaleY = self.superview!.bounds.height / hauntSize 
+        
+        let scaleX = self.superview!.bounds.width / viewRect.width
+        let scaleY = self.superview!.bounds.height / viewRect.height
+        
+        if viewRect.origin.x > hauntSize - viewRect.width / 2 {
+            viewRect.origin.x = hauntSize - viewRect.width / 2
+        }
+        
+        if viewRect.origin.x < viewRect.width / 2 {
+            viewRect.origin.x = viewRect.width / 2
+        }
+        
+        if viewRect.origin.y > hauntSize  - viewRect.height / 2 {
+            viewRect.origin.y = hauntSize  - viewRect.height / 2
+        }
+        
+        if viewRect.origin.y < viewRect.height / 2 {
+            viewRect.origin.y = viewRect.height / 2
+        }
+    
 
-            ctr++
-            pts[ctr] = p
-            if (ctr == 4) {
-                pts[3] = CGPoint(x: (pts[2]!.x + pts[4]!.x)/2.0, y: (pts[2]!.y + pts[4]!.y)/2.0)
+        if (scaleX > 1.0 || scaleY > 1.0) {
+            viewRect.size.width = self.superview!.bounds.width
+            viewRect.size.height = self.superview!.bounds.height
+        }
         
-                for i in 0...4 {
-                    pointsBuffer[bufIdx + i] = pts[i];
-                }
+        if scaleX < minScaleX {
+            viewRect.size.width = self.superview!.bounds.width / minScaleX
+            viewRect.size.height = self.superview!.bounds.height / minScaleX
+        }
         
-                bufIdx += 4
+        if scaleY < minScaleY {
+            viewRect.size.width = self.superview!.bounds.width / minScaleY
+            viewRect.size.height = self.superview!.bounds.height / minScaleY
+        }
         
-                let bounds = self.bounds
-        
-              //  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-                    let offsetPath = UIBezierPath()
-                    if (self.bufIdx == 0) {
-                        return
-                    }
-        
-                    var ls = [LineSegment?](count: 4, repeatedValue: nil)
-                    for var i = 0; i < self.bufIdx; i += 4 {
-                        if (self.isFirstTouchPoint) {
-                            ls[0] = LineSegment(firstPoint: self.pointsBuffer[0]!, secondPoint: self.pointsBuffer[0]!)
-                            offsetPath.moveToPoint(ls[0]!.firstPoint)
-                            self.isFirstTouchPoint = false
-                        } else {
-                            ls[0] = self.lastSegmentOfPrev
-                            let frac1 = FF/clamp(len_sq(self.pointsBuffer[i]!,   self.pointsBuffer[i+1]!), LOWER, UPPER)
-                            let frac2 = FF/clamp(len_sq(self.pointsBuffer[i+1]!, self.pointsBuffer[i+2]!), LOWER, UPPER);
-                            let frac3 = FF/clamp(len_sq(self.pointsBuffer[i+2]!, self.pointsBuffer[i+3]!), LOWER, UPPER)
-                            
-                            ls[1] = self.lineSegmentPerpendicularTo(LineSegment(firstPoint: self.pointsBuffer[i]!, secondPoint: self.pointsBuffer[i+1]!), ofRelativeLength: frac1)
-                            
-                            ls[2] = self.lineSegmentPerpendicularTo(LineSegment(firstPoint: self.pointsBuffer[i+1]!, secondPoint: self.pointsBuffer[i+2]!), ofRelativeLength: frac2)
-                            
-                            ls[3] = self.lineSegmentPerpendicularTo(LineSegment(firstPoint: self.pointsBuffer[i+2]!, secondPoint: self.pointsBuffer[i+3]!), ofRelativeLength: frac3)
-        
-                            offsetPath.moveToPoint(ls[0]!.firstPoint)
-                            offsetPath.addCurveToPoint(ls[3]!.firstPoint, controlPoint1: ls[1]!.firstPoint,
-                                controlPoint2: ls[2]!.firstPoint)
-                            
-                            offsetPath.addLineToPoint(ls[3]!.secondPoint)
-                            offsetPath.addCurveToPoint(ls[0]!.secondPoint, controlPoint1: ls[2]!.secondPoint,
-                                controlPoint2: ls[1]!.secondPoint)
-                            offsetPath.closePath()
-        
-                            self.lastSegmentOfPrev = ls[3]!
-                        }
-                        
-                   //     UIGraphicsBeginImageContextWithOptions(bounds.size, true, 0.0)
-        
-                      //  if (self.incrementalImage == nil) {
-                       //     let rectpath = UIBezierPath(rect: self.bounds)
-                       //     UIColor.whiteColor().setFill()
-                       //     rectpath.fill()
-                       //     self.incrementalImage = UIGraphicsGetImageFromCurrentImageContext()
-                       // }
-                        
-                       // self.incrementalImage.drawAtPoint(CGPointZero)
-                        UIColor.blackColor().setStroke()
-                        UIColor.blackColor().setFill()
-                        offsetPath.stroke()
-                        offsetPath.fill()
-                        
-                     //   UIGraphicsEndImageContext()
-                        
-                        offsetPath.removeAllPoints()
-                     //   dispatch_async(dispatch_get_main_queue()) {
-                            self.bufIdx = 0
-                            self.setNeedsDisplay()
-                      //  }
-                    }
-               // }
-                
-                self.pts[0] = self.pts[3]
-                self.pts[1] = self.pts[4]
-                self.ctr = 1
+        let scale = self.superview!.bounds.height / viewRect.height
+
+        // I actually treat the origin as the center
+        self.transform = CGAffineTransformMakeScale(scale, scale)
+        self.transform = CGAffineTransformTranslate(self.transform,
+            viewRect.origin.x - hauntSize / 2, viewRect.origin.y - hauntSize / 2)
+    }
+    
+    // TODO FOR TEST:
+    // New join of two users creates haunt, otherwise shows nothing = TEST
+    // Additional user asks for haunt, gets back pixels = TEST
+    // Enable/disable haunt editing
+    // Losing all connections shows nothing on the screen
+    // Save haunt
+    // Look at old haunts
+    
+    // TODO LATER:
+    // Screen rotation
+    
+    func panBegan(location : CGPoint, numTouches : Int) {
+        if numTouches == 1 {
+            previousPoint = location
+        } else {
+            panStart = location
+        }
+    }
+    
+    func fadeIn() {
+        self.alpha = 0
+        UIView.animateWithDuration(2.0) {
+            self.alpha = 1
+        }
+    }
+    
+    func fadeOut() {
+        self.alpha = 1
+        UIView.animateWithDuration(2.0) {
+            self.alpha = 0
+        }
+    }
+    
+    func panMoved(location : CGPoint, numTouches : Int) {
+        if numTouches == 1 {
+            if (mag2(location - previousPoint) < MIN_DIST) {
+                return
             }
-        }
-    }
-    
-    override func drawRect( rect: CGRect)
-    {
-        if (self.incrementalImage != nil) {
-            self.incrementalImage.drawInRect(rect)
-        }
-    }
-    
         
-    override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
-        self.setNeedsDisplay()
+            let velocity = mag(location - previousPoint) / MIN_DIST
+            let p = Point(p: location, w: velocity)
+            currentPath.pts.append(p)
+            previousPoint = location
+            self.currentShapeLayer.path = generateStroke(currentPath).CGPath
+        } else {
+            viewRect.origin = viewRect.origin + location - panStart
+            updateViewRect()
+        }
     }
     
-    override func touchesCancelled(touches: NSSet!, withEvent event: UIEvent!) {
-        self.touchesEnded(touches, withEvent: event)
+    func panEnded(numTouches : Int) {
+        if numTouches < 2 {
+            PeerKit.sendEvent("path", object: currentPath)
+            currentShapeLayer = CAShapeLayer()
+            self.layer.addSublayer(currentShapeLayer)
+            currentPath = Path()
+        }
     }
     
-    func lineSegmentPerpendicularTo(pp : LineSegment, ofRelativeLength fraction : Float) -> LineSegment
-    {
-        let x0 = pp.firstPoint.x
-        let y0 = pp.firstPoint.y
-        let x1 = pp.secondPoint.x
-        let y1 = pp.secondPoint.y
-        let dx = x1 - x0
-        let dy = y1 - y0
-        let xa = Float(x1) + fraction / Float(2.0 * dy)
-        let ya = Float(y1) - fraction / Float(2.0 * dx)
-        let xb = Float(x1) - fraction / Float(2.0 * dy)
-        let yb = Float(y1) + fraction / Float(2.0 * dx)
-    
-        return LineSegment(firstPoint: CGPoint(x: CGFloat(xa), y: CGFloat(ya)),
-                           secondPoint: CGPoint(x: CGFloat(xb), y: CGFloat(yb)))
+    func pinchMoved(scale : CGFloat) {
+        self.viewRect = CGRect(x: self.viewRect.origin.x,
+                               y: self.viewRect.origin.y,
+                                width: self.viewRect.width / scale,
+                                height: self.viewRect.height / scale)
+        updateViewRect()
     }
-    
-
-}*/
+ }

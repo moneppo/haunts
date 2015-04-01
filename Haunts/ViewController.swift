@@ -12,8 +12,6 @@ import MultipeerConnectivity
 
 let reuseIdentifier = "PeerCell"
 
-
-
 class ViewController: UIViewController, UICollectionViewDataSource, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIGestureRecognizerDelegate {
     
     enum State {
@@ -23,10 +21,18 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
         case Connected
     }
     
+    struct Message {
+        var type : String
+        var timestamp : NSDate
+        var peer : MCPeerID
+    }
+    
+    var messages = [Message]()
+    
     @IBOutlet var seanceButton : SeanceButton!
     @IBOutlet var blockButton : BlockSeanceButton!
     @IBOutlet var peerIcons : UICollectionView!
-    @IBOutlet var canvasView : CanvasView2!
+    @IBOutlet var canvasView : CanvasView!
     
     @IBOutlet var pinchRecognizer : UIPinchGestureRecognizer!
     @IBOutlet var panRecognizer : UIPanGestureRecognizer!
@@ -38,8 +44,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
     override func viewDidLoad() {
         super.viewDidLoad()
         blockButton.hidden = true
-
-        self.peerIcons.backgroundColor = UIColor.blueColor()
         
         self.peerIcons.dataSource = self
         self.peerIcons.reloadData()
@@ -50,7 +54,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
         panRecognizer.delegate = self
         pinchRecognizer.delegate = self
         
-        canvasView.zoomToExtents()
+        panRecognizer.enabled = false
+        pinchRecognizer.enabled = false
         
         // Register cell classes
         self.peerIcons.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
@@ -62,7 +67,18 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
     }
     
     func createNewHaunt() {
-       self.state = State.Connected
+        self.state = State.Connected
+        panRecognizer.enabled = true
+        pinchRecognizer.enabled = true
+        canvasView.fadeIn()
+    }
+    
+    func removeCurrentHaunt() {
+        self.state = State.Disconnected
+        panRecognizer.enabled = true
+        pinchRecognizer.enabled = true
+        canvasView.fadeOut()
+
     }
     
     func sendCurrentHaunt(peer: MCPeerID) {
@@ -77,8 +93,28 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
         }
     }
     
+    func checkQueueForMessage(type: String, timestamp: NSDate, peer: MCPeerID) -> Bool {
+        for m in self.messages {
+            if m.type == type && m.timestamp == timestamp && m.peer == peer {
+                println("deja vu " + type)
+                return true
+            }
+        }
+        if self.messages.count > 10 {
+            self.messages.removeAtIndex(0)
+        }
+        
+        let message = Message(type: type, timestamp: timestamp, peer: peer)
+        self.messages.append(message)
+        
+        return false
+    }
+    
+    
     func setupPeerConnections() {
         PeerKit.onConnect = { myPeerID, peerID in
+            print("Connect: ")
+            println(peerID)
             self.peerIcons.reloadData()
             if let session = PeerKit.session {
                 if self.state == State.Disconnected && session.connectedPeers.count > 0 {
@@ -87,16 +123,19 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
             }
         }
         
-        PeerKit.onDisconnect = { peer in
+        PeerKit.onDisconnect = { myPeerID, peerID in
+            print("Disconnect: ")
+            println(peerID)
             self.peerIcons.reloadData()
             if let session = PeerKit.session {
                 if session.connectedPeers.count == 0 {
-                    self.state = State.Disconnected
+                    self.removeCurrentHaunt()
                 }
             }
         }
         
         PeerKit.onEvent = { peerID, event, object in
+            println("Event: " + event)
             switch event {
             case "needHaunt":
                 if self.state == State.Connected {
@@ -114,20 +153,40 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
                     println("Got createNewHaunt command but in another state")
                 }
                 break
+            case "path":
+                if self.state == State.Connected {
+                    let p = object as Path
+                    if !self.checkQueueForMessage("path", timestamp: p.timestamp, peer: peerID) {
+                        self.canvasView.placePath(p)
+                        PeerKit.sendEvent("path", object: p)
+                    }
+                } else {
+                    println("Got path while not connected")
+                }
             default:
                 break
             }
         }
         
         PeerKit.onFinishReceivingResource = { myPeerID, resourceName, peer, localURL in
-            if self.state == State.RequestedHaunt {
-                self.createNewHaunt()
-                let img = UIImage(contentsOfFile: localURL.absoluteString!)
-                if let image = img {
-                    self.canvasView.placeImage(image, at: CGPointZero)
+            if resourceName == "Haunt" {
+                if self.state == State.RequestedHaunt {
+                    self.createNewHaunt()
+                    let img = UIImage(contentsOfFile: localURL.absoluteString!)
+                    if let image = img {
+                        self.canvasView.placeImage(image, at: CGPointZero)
+                    }
+                } else {
+                    println("Got an existing haunt without asking for it")
                 }
             } else {
-                println("Got an existing haunt without asking for it")
+                let df = NSDateFormatter()
+                df.dateFormat = "yyyy-MM-dd HH:mm:ss a"
+                if let timestamp = df.dateFromString(resourceName) {
+                    if !self.checkQueueForMessage("image", timestamp: timestamp, peer: peer) {
+                        self.canvasView.placeImage(UIImage(contentsOfFile: localURL.absoluteString!)!, at: CGPointZero)
+                    }
+                }
             }
         }
     }
@@ -175,6 +234,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
         imagePicker.dismissViewControllerAnimated(true, completion: nil)
         if let img = info[UIImagePickerControllerOriginalImage] as? UIImage {
             canvasView.placeImage(img, at: canvasView.viewRect.origin)
+            let url = imageToTempURL(img)
+            let df = NSDateFormatter()
+            df.dateFormat = "yyyy-MM-dd HH:mm:ss a"
+            let dateString = df.stringFromDate(NSDate())
+            PeerKit.sendResourceAtURL(NSURL(fileURLWithPath: url), withName: dateString,
+                withCompletionHandler: { error in
+                    println(error)
+                })
         }
     }
 
