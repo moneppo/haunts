@@ -93,7 +93,7 @@ class CanvasView2: UIView {
         return path
     }
     
-    func placeImage(img: UIImage) {
+    func placeImage(img: UIImage, at: CGPoint) {
     }
     
     func resize(modelExtent: CGSize, modelCenter: CGPoint) {
@@ -162,6 +162,17 @@ class CanvasView2: UIView {
         self.transform = CGAffineTransformTranslate(self.transform,
             viewRect.origin.x - hauntSize / 2, viewRect.origin.y - hauntSize / 2)
     }
+    
+    // TODO FOR TEST:
+    // New join of two users creates haunt, otherwise shows nothing = TEST
+    // Additional user asks for haunt, gets back pixels = TEST
+    // Enable/disable haunt editing
+    // Losing all connections shows nothing on the screen
+    // Save haunt
+    // Look at old haunts
+    
+    // TODO LATER:
+    // Screen rotation
     
     func panBegan(location : CGPoint, numTouches : Int) {
         if numTouches == 1 {
