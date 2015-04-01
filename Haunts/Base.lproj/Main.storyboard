@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EOa-0O-YQu" customClass="CanvasView2" customModule="Haunts" customModuleProvider="target">
-                                <rect key="frame" x="73" y="85" width="1024" height="1025"/>
+                                <rect key="frame" x="73" y="85" width="2048" height="2048"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="2048" id="5Xo-kB-XoT"/>

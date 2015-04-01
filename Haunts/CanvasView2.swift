@@ -31,6 +31,8 @@ class CanvasView2: UIView {
     var minZoom : CGFloat = CGFloat(0.0)
     var panBounds : CGRect = CGRect.infiniteRect
     
+    var viewRect : CGRect = CGRect.zeroRect
+    
     override func drawRect(rect: CGRect) {
         UIColor.blackColor().setFill()
         for p in paths {
@@ -92,8 +94,75 @@ class CanvasView2: UIView {
     func placeImage(img: UIImage) {
     }
     
+    func resize(modelExtent: CGSize, modelCenter: CGPoint) {
+        let origin = CGPoint(x: modelCenter.x /*- modelExtent.width / 2*/, y: modelCenter.y /*- modelExtent.height / 2*/)
+        viewRect = CGRect(x: origin.x, y: origin.y, width: modelExtent.width, height: modelExtent.height);
+    }
+    
+    func zoomToExtents() {
+        if self.superview!.bounds.width > self.superview!.bounds.height {
+            let ratio = self.superview!.bounds.width / self.superview!.bounds.height
+            resize(CGSize(width: 2048, height: 2048 * ratio), modelCenter: CGPoint(x: 0,y: 0))
+        } else {
+            let ratio = self.superview!.bounds.height / self.superview!.bounds.width
+            resize(CGSize(width: 2048 * ratio, height: 2048), modelCenter: CGPoint(x: 0,y: 0))
+        }
+        
+    }
+    
     func placePath(p: Path) {
         paths.append(generateStroke(p))
+    }
+    
+    func updateViewRect() {
+
+        
+        let minScaleX = self.superview!.bounds.width / 2048
+        let minScaleY = self.superview!.bounds.height / 2048
+        
+        let scaleX = self.superview!.bounds.width / viewRect.width
+        let scaleY = self.superview!.bounds.height / viewRect.height
+        
+        if viewRect.origin.x > 2048 - viewRect.width / 2 {
+            viewRect.origin.x = 2048 - viewRect.width / 2
+        }
+        
+        if viewRect.origin.x < viewRect.width / 2 {
+            viewRect.origin.x = viewRect.width / 2
+        }
+        
+        
+        
+        if viewRect.origin.y > 2048 - viewRect.height / 2 {
+            viewRect.origin.y = 2048 - viewRect.height / 2
+        }
+        
+        if viewRect.origin.y < viewRect.height / 2 {
+            viewRect.origin.y = viewRect.height / 2
+        }
+    
+
+        if (scaleX > 1.0 || scaleY > 1.0) {
+            viewRect.size.width = self.superview!.bounds.width
+            viewRect.size.height = self.superview!.bounds.height
+        }
+        
+        if scaleX < minScaleX {
+            viewRect.size.width = self.superview!.bounds.width / minScaleX
+            viewRect.size.height = self.superview!.bounds.height / minScaleX
+        }
+        
+        if scaleY < minScaleY {
+            viewRect.size.width = self.superview!.bounds.width / minScaleY
+            viewRect.size.height = self.superview!.bounds.height / minScaleY
+        }
+        
+        let scale = self.superview!.bounds.height / viewRect.height
+
+        // I actually treat the origin as the center
+        self.transform = CGAffineTransformMakeScale(scale, scale)
+        self.transform = CGAffineTransformTranslate(self.transform,
+            viewRect.origin.x - 1024, viewRect.origin.y - 1024)
     }
     
     func panBegan(location : CGPoint, numTouches : Int) {
@@ -118,7 +187,8 @@ class CanvasView2: UIView {
             previousPoint = location
             self.setNeedsDisplay()
         } else {
-            self.center = self.center + location - panStart
+            viewRect.origin = viewRect.origin + location - panStart
+            updateViewRect()
         }
     }
     
@@ -131,9 +201,10 @@ class CanvasView2: UIView {
     }
     
     func pinchMoved(scale : CGFloat) {
-        let newScale = CGAffineTransformScale(self.transform, scale, scale)
-        if (newScale.a <= 1.0 && newScale.a >= self.minZoom) {
-            self.transform = newScale
-        }
+        self.viewRect = CGRect(x: self.viewRect.origin.x,
+                               y: self.viewRect.origin.y,
+                                width: self.viewRect.width / scale,
+                                height: self.viewRect.height / scale)
+        updateViewRect()
     }
  }

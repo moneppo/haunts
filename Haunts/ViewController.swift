@@ -39,8 +39,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
         panRecognizer.delegate = self
         pinchRecognizer.delegate = self
         
-        canvasView.minZoom = min(canvasView.bounds.width / canvasView.superview!.bounds.width,
-                                 canvasView.bounds.height / canvasView.superview!.bounds.height)
+        canvasView.zoomToExtents()
         
         // Register cell classes
         self.peerIcons.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
@@ -75,6 +74,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
         switch(rec.state) {
         case UIGestureRecognizerState.Began:
             canvasView.panBegan(rec.locationInView(canvasView), numTouches: rec.numberOfTouches())
+            rec.setTranslation(CGPoint.zeroPoint, inView: canvasView)
             break
         case UIGestureRecognizerState.Changed:
             canvasView.panMoved(rec.locationInView(canvasView), numTouches: rec.numberOfTouches())
