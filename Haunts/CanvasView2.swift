@@ -18,6 +18,8 @@ class Path {
 
 class CanvasView2: UIView {
     
+    let hauntSize = CGFloat(3072)
+    
     let MIN_DIST = CGFloat(7.0)
     let MIN_THICKNESS = CGFloat(1)
     let MAX_THICKNESS = CGFloat(7)
@@ -102,10 +104,10 @@ class CanvasView2: UIView {
     func zoomToExtents() {
         if self.superview!.bounds.width > self.superview!.bounds.height {
             let ratio = self.superview!.bounds.width / self.superview!.bounds.height
-            resize(CGSize(width: 2048, height: 2048 * ratio), modelCenter: CGPoint(x: 0,y: 0))
+            resize(CGSize(width: hauntSize, height: hauntSize  * ratio), modelCenter: CGPoint(x: 0,y: 0))
         } else {
             let ratio = self.superview!.bounds.height / self.superview!.bounds.width
-            resize(CGSize(width: 2048 * ratio, height: 2048), modelCenter: CGPoint(x: 0,y: 0))
+            resize(CGSize(width: hauntSize  * ratio, height: hauntSize ), modelCenter: CGPoint(x: 0,y: 0))
         }
         
     }
@@ -115,26 +117,22 @@ class CanvasView2: UIView {
     }
     
     func updateViewRect() {
-
-        
-        let minScaleX = self.superview!.bounds.width / 2048
-        let minScaleY = self.superview!.bounds.height / 2048
+        let minScaleX = self.superview!.bounds.width / hauntSize 
+        let minScaleY = self.superview!.bounds.height / hauntSize 
         
         let scaleX = self.superview!.bounds.width / viewRect.width
         let scaleY = self.superview!.bounds.height / viewRect.height
         
-        if viewRect.origin.x > 2048 - viewRect.width / 2 {
-            viewRect.origin.x = 2048 - viewRect.width / 2
+        if viewRect.origin.x > hauntSize - viewRect.width / 2 {
+            viewRect.origin.x = hauntSize - viewRect.width / 2
         }
         
         if viewRect.origin.x < viewRect.width / 2 {
             viewRect.origin.x = viewRect.width / 2
         }
         
-        
-        
-        if viewRect.origin.y > 2048 - viewRect.height / 2 {
-            viewRect.origin.y = 2048 - viewRect.height / 2
+        if viewRect.origin.y > hauntSize  - viewRect.height / 2 {
+            viewRect.origin.y = hauntSize  - viewRect.height / 2
         }
         
         if viewRect.origin.y < viewRect.height / 2 {
@@ -162,7 +160,7 @@ class CanvasView2: UIView {
         // I actually treat the origin as the center
         self.transform = CGAffineTransformMakeScale(scale, scale)
         self.transform = CGAffineTransformTranslate(self.transform,
-            viewRect.origin.x - 1024, viewRect.origin.y - 1024)
+            viewRect.origin.x - hauntSize / 2, viewRect.origin.y - hauntSize / 2)
     }
     
     func panBegan(location : CGPoint, numTouches : Int) {

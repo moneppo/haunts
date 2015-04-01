@@ -168,11 +168,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Haunts/CanvasView2.swift"
-            timestampString = "449543314.529851"
+            timestampString = "449544253.702345"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "179"
-            endingLineNumber = "179"
+            startingLineNumber = "177"
+            endingLineNumber = "177"
             landmarkName = "panMoved(_:numTouches:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -184,11 +184,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Haunts/CanvasView2.swift"
-            timestampString = "449543314.529851"
+            timestampString = "449544253.702345"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "169"
-            endingLineNumber = "169"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
             landmarkName = "panBegan(_:numTouches:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -216,11 +216,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Haunts/CanvasView2.swift"
-            timestampString = "449543314.529851"
+            timestampString = "449544253.702345"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "203"
-            endingLineNumber = "203"
+            startingLineNumber = "201"
+            endingLineNumber = "201"
             landmarkName = "pinchMoved(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -232,11 +232,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Haunts/CanvasView2.swift"
-            timestampString = "449543314.529851"
+            timestampString = "449544253.702345"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "160"
-            endingLineNumber = "160"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
             landmarkName = "updateViewRect()"
             landmarkType = "5">
          </BreakpointContent>
@@ -248,11 +248,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Haunts/CanvasView2.swift"
-            timestampString = "449543314.529851"
+            timestampString = "449544253.702345"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
             landmarkName = "updateViewRect()"
             landmarkType = "5">
          </BreakpointContent>

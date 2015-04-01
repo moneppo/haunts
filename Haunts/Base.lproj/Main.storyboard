@@ -21,8 +21,8 @@
                                 <rect key="frame" x="73" y="85" width="2048" height="2048"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="2048" id="5Xo-kB-XoT"/>
-                                    <constraint firstAttribute="width" constant="2048" id="fET-fa-kPW"/>
+                                    <constraint firstAttribute="height" constant="3072" id="5Xo-kB-XoT"/>
+                                    <constraint firstAttribute="width" constant="3072" id="fET-fa-kPW"/>
                                 </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="sih-xW-BKM" appends="YES" id="W2e-C0-tTB"/>
