@@ -37,7 +37,7 @@ class Point : NSObject, NSCoding{
 
 class Path : NSObject, NSCoding {
     var pts : [Point] = []
-    var color : UIColor = UIColor.blackColor()
+    var color : UIColor = UIColor.whiteColor()
     var timestamp : NSDate = NSDate()
 
     required convenience init(coder decoder: NSCoder) {

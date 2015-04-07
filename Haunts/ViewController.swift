@@ -11,8 +11,10 @@ import PeerKit
 import MultipeerConnectivity
 
 let reuseIdentifier = "PeerCell"
+let SEANCE_AGREED : Int = 1
 
 class ViewController: UIViewController, UICollectionViewDataSource, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIGestureRecognizerDelegate {
+    
     
     enum State {
         case Disconnected
@@ -21,15 +23,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
         case Connected
     }
     
-    struct Message {
-        var type : String
-        var timestamp : NSDate
-        var peer : MCPeerID
-    }
-    
-    var messages = [Message]()
-    
-    @IBOutlet var seanceButton : SeanceButton!
+    @IBOutlet var seanceButton : UIButton!
     @IBOutlet var blockButton : BlockSeanceButton!
     @IBOutlet var peerIcons : UICollectionView!
     @IBOutlet var canvasView : CanvasView!
@@ -38,7 +32,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
     @IBOutlet var panRecognizer : UIPanGestureRecognizer!
     
     var state : State = State.Disconnected
-    
+    var seanceTotal : Int = 0
     var imagePicker: UIImagePickerController!
 
     override func viewDidLoad() {
@@ -59,10 +53,15 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
         
         // Register cell classes
         self.peerIcons.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        
+        //self.createNewHaunt()
+        LocationService.start()
+        
+        PastViewController.initPastViewData()
     }
     
     func askForCurrentHaunt(peer: MCPeerID) {
-        PeerKit.sendEvent("needHaunt", object: nil, toPeers: [peer])
+        SendMessage("needHaunt", to: [peer])
         self.state = State.RequestedHaunt
     }
     
@@ -81,35 +80,38 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
 
     }
     
-    func sendCurrentHaunt(peer: MCPeerID) {
+    func createHauntImage() -> UIImage {
         UIGraphicsBeginImageContextWithOptions(canvasView.bounds.size, true, 0.0)
         let context = UIGraphicsGetCurrentContext()
         self.canvasView.layer.renderInContext(context)
         let img = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext()
+        return img
+    }
+    
+    func sendCurrentHaunt(peer: MCPeerID) {
+        let img = createHauntImage()
         let url = imageToTempURL(img)
         PeerKit.sendResourceAtURL(NSURL(fileURLWithPath: url), withName: "Haunt", toPeers: [peer]) { error in
            println(error)
         }
     }
     
-    func checkQueueForMessage(type: String, timestamp: NSDate, peer: MCPeerID) -> Bool {
-        for m in self.messages {
-            if m.type == type && m.timestamp == timestamp && m.peer == peer {
-                println("deja vu " + type)
-                return true
-            }
+    func saveHaunt() {
+        let dir = documentsDirectory()
+        let locString = LocationService.getLocationString()
+        let path = dir.URLByAppendingPathComponent(locString)//stringByAppendingPathComponent(locString)
+        var error : NSError?
+        if !NSFileManager.defaultManager().fileExistsAtPath(path.path!) {
+            NSFileManager.defaultManager().createDirectoryAtPath(path.path!,
+                withIntermediateDirectories: true, attributes: nil, error: &error)
         }
-        if self.messages.count > 10 {
-            self.messages.removeAtIndex(0)
-        }
-        
-        let message = Message(type: type, timestamp: timestamp, peer: peer)
-        self.messages.append(message)
-        
-        return false
+        let df = NSDateFormatter()
+        df.dateFormat = "yyyy-MM-dd HH-mm-ss"
+        let imgPath = path.path! + "/" + df.stringFromDate(NSDate()) + ".png";
+        saveImage(self.createHauntImage(), imgPath)
+        NSNotificationCenter.defaultCenter().postNotificationName("Haunts_NewSaved", object:nil)
     }
-    
     
     func setupPeerConnections() {
         PeerKit.onConnect = { myPeerID, peerID in
@@ -135,13 +137,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
         }
         
         PeerKit.onEvent = { peerID, event, object in
-            println("Event: " + event)
-            switch event {
+            filter(object as Message) { message in
+                println("Event: " + message.Type)
+                switch message.Type {
             case "needHaunt":
                 if self.state == State.Connected {
                     self.sendCurrentHaunt(peerID)
                 } else {
-                    PeerKit.sendEvent("createNewHaunt", object: nil, toPeers: [peerID])
+                    SendMessage("createNewHaunt", to: [peerID])
                     self.state = State.CreatingNewHaunt
                     self.createNewHaunt()
                 }
@@ -155,39 +158,70 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
                 break
             case "path":
                 if self.state == State.Connected {
-                    let p = object as Path
-                    if !self.checkQueueForMessage("path", timestamp: p.timestamp, peer: peerID) {
+                    if let p = message.Body as? Path {
                         self.canvasView.placePath(p)
-                        PeerKit.sendEvent("path", object: p)
                     }
+                    RelayMessage(message)
                 } else {
                     println("Got path while not connected")
                 }
+            case "seance":
+                if self.state == State.Connected {
+                    self.blockButton.hidden = false
+                    self.seanceTotal++
+                    if self.seanceTotal >= SEANCE_AGREED {
+                        self.seanceTotal = 0
+                        self.saveHaunt()
+                    }
+                    
+                    RelayMessage(message)
+                }
+                break
+            case "block":
+                self.seanceTotal = 0
+                self.blockButton.hidden = true
+                RelayMessage(message)
+                break
             default:
                 break
             }
         }
         
-        PeerKit.onFinishReceivingResource = { myPeerID, resourceName, peer, localURL in
+        PeerKit.onFinishReceivingResource = { myPeerID, resourceName, peerID, localURL in
             if resourceName == "Haunt" {
                 if self.state == State.RequestedHaunt {
                     self.createNewHaunt()
-                    let img = UIImage(contentsOfFile: localURL.absoluteString!)
-                    if let image = img {
+                    if let image = UIImage(contentsOfFile: localURL.path!) {
                         self.canvasView.placeImage(image, at: CGPointZero)
+                    }
+                    
+                    if let session = PeerKit.session {
+                        var sublist = [MCPeerID]()
+                        for o in session.connectedPeers {
+                            let peer = o as MCPeerID
+                            if peer != peerID {
+                                sublist.append(peer)
+                            }
+                        }
+                        PeerKit.sendResourceAtURL(localURL, withName: resourceName, toPeers: sublist) { error in
+                            println("got error relaying " + resourceName)
+                        }
                     }
                 } else {
                     println("Got an existing haunt without asking for it")
                 }
             } else {
                 let df = NSDateFormatter()
-                df.dateFormat = "yyyy-MM-dd HH:mm:ss a"
+                df.dateFormat = "yyyy-MM-dd HH-mm-ss"
                 if let timestamp = df.dateFromString(resourceName) {
-                    if !self.checkQueueForMessage("image", timestamp: timestamp, peer: peer) {
-                        self.canvasView.placeImage(UIImage(contentsOfFile: localURL.absoluteString!)!, at: CGPointZero)
+                    let message = Message(from: peerID, type: "image", timestamp: timestamp)
+                    filter(message) { m in
+                        self.canvasView.placeImage(UIImage(contentsOfFile: localURL.path!)!, at: CGPointZero)
+                        RelayResource(m, localURL)
                     }
                 }
             }
+        }
         }
     }
     
@@ -204,6 +238,25 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
         imagePicker.sourceType = .Camera
         
         presentViewController(imagePicker, animated: true, completion: nil)
+    }
+    
+    @IBAction func seance(sender: UIButton) {
+        if self.state == State.Connected {
+            self.blockButton.hidden = false
+            self.seanceTotal++
+            if self.seanceTotal >= SEANCE_AGREED {
+                self.seanceTotal = 0
+                self.saveHaunt()
+            }
+
+            if let session = PeerKit.session {
+                SendMessage("seance")
+            }
+        }
+    }
+    
+    @IBAction func openHistory(sender:UIButton) {
+        self.navigationController?.pushViewController(PastViewController(), animated: true)
     }
     
     @IBAction func handlePan(rec : UIPanGestureRecognizer) {
@@ -236,7 +289,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
             canvasView.placeImage(img, at: canvasView.viewRect.origin)
             let url = imageToTempURL(img)
             let df = NSDateFormatter()
-            df.dateFormat = "yyyy-MM-dd HH:mm:ss a"
+            df.dateFormat = "yyyy-MM-dd HH-mm-ss"
             let dateString = df.stringFromDate(NSDate())
             PeerKit.sendResourceAtURL(NSURL(fileURLWithPath: url), withName: dateString,
                 withCompletionHandler: { error in
@@ -264,7 +317,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as UICollectionViewCell
         
         // Configure the cell
-        cell.backgroundColor = UIColor.blackColor()
+        cell.backgroundColor = UIColor.greenColor()
         
         return cell
     }

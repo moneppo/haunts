@@ -138,9 +138,7 @@ class CanvasView: UIView {
     }
     
     // TODO FOR TEST:
-    // New join of two users creates haunt, otherwise shows nothing = TEST
     // Additional user asks for haunt, gets back pixels = TEST
-    // Enable/disable haunt editing
     // Losing all connections shows nothing on the screen
     // Save haunt
     // Look at old haunts
@@ -165,9 +163,12 @@ class CanvasView: UIView {
     
     func fadeOut() {
         self.alpha = 1
-        UIView.animateWithDuration(2.0) {
+        UIView.animateWithDuration(2.0, animations: {
             self.alpha = 0
-        }
+        },
+        completion: { ok in
+            self.layer.sublayers = nil
+        })
     }
     
     func panMoved(location : CGPoint, numTouches : Int) {
@@ -189,8 +190,9 @@ class CanvasView: UIView {
     
     func panEnded(numTouches : Int) {
         if numTouches < 2 {
-            PeerKit.sendEvent("path", object: currentPath)
+            SendMessage("path", body: currentPath)
             currentShapeLayer = CAShapeLayer()
+            currentShapeLayer.fillColor = UIColor.whiteColor().CGColor
             self.layer.addSublayer(currentShapeLayer)
             currentPath = Path()
         }
