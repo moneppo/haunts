@@ -44,9 +44,12 @@ class PastViewController: UIViewController, UICollectionViewDelegate, UICollecti
         let docsDir = documentsDirectory()
         let path = docsDir.path! + "/" + LocationService.getLocationString() + "/"
         var error = NSErrorPointer()
-        _images = NSFileManager.defaultManager().contentsOfDirectoryAtPath(path, error: error) as [String]
-        for (i, img) in enumerate(_images) {
-            _images[i] = path + img
+        let contents = NSFileManager.defaultManager().contentsOfDirectoryAtPath(path, error: error)
+        if let c = contents as? [String] {
+            _images = c
+            for (i, img) in enumerate(_images) {
+                _images[i] = path + img
+            }
         }
     }
     

@@ -240,6 +240,25 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
         presentViewController(imagePicker, animated: true, completion: nil)
     }
     
+    @IBAction func setStrokeColor(caller: UIButton) {
+        if let c = caller.backgroundColor {
+            var w : CGFloat = 0
+            var a : CGFloat = 0
+            c.getWhite(&w, alpha: &a)
+            if (w < 0.2) {
+                self.canvasView.setStrokeColor(UIColor.blackColor())
+            } else {
+                var r : CGFloat = 0
+                var g : CGFloat = 0
+                var b : CGFloat = 0
+                var a : CGFloat = 0
+                c.getRed(&r, green:&g, blue:&b, alpha:&a)
+                self.canvasView.setStrokeColor(UIColor(red: r, green: g, blue: b, alpha: 1))
+            }
+        }
+    }
+
+    
     @IBAction func seance(sender: UIButton) {
         if self.state == State.Connected {
             self.blockButton.hidden = false
@@ -312,12 +331,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        //if let session = PeerKit.session {
-        //  session.connectedPeers
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as UICollectionViewCell
         
         // Configure the cell
-        cell.backgroundColor = UIColor.greenColor()
+        let path = NSBundle.mainBundle().pathForResource("video48", ofType:"png")
+        if let img = UIImage(contentsOfFile: path!) {
+            cell.backgroundColor = UIColor(patternImage: img)
+        }
         
         return cell
     }

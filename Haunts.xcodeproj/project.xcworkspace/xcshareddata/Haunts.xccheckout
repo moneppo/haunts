@@ -22,7 +22,7 @@
 		<key>3733F58DC4F9C0AAB31D5E54D887AAE18930D0DA</key>
 		<string>../..</string>
 		<key>9A64317953518213A59F0416BCEF6EF2D02BD22B</key>
-		<string>../..Haunts/PeerKit/</string>
+		<string>../..Haunts/PeerKit</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/moneppo/haunts.git</string>

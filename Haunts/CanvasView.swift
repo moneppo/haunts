@@ -15,11 +15,11 @@ class CanvasView: UIView {
     let MAX_THICKNESS = CGFloat(7)
     let THICK_RATE = CGFloat(0.5)
     
-    //var paths : [UIBezierPath] = []
     var currentPath: Path = Path()
     var currentShapeLayer : CAShapeLayer! = CAShapeLayer()
     var panStart : CGPoint = CGPoint.zeroPoint
     var previousPoint : CGPoint = CGPoint.zeroPoint
+    var color : UIColor = UIColor.whiteColor()
     
     var minZoom : CGFloat = CGFloat(0.0)
     var panBounds : CGRect = CGRect.infiniteRect
@@ -81,6 +81,12 @@ class CanvasView: UIView {
     }
     
     func placeImage(img: UIImage, at: CGPoint) {
+    }
+    
+    func setStrokeColor(c: UIColor) {
+        self.color = c
+        self.currentPath.color = c
+        self.currentShapeLayer.fillColor = c.CGColor
     }
     
     func placePath(p: Path) {
@@ -192,9 +198,10 @@ class CanvasView: UIView {
         if numTouches < 2 {
             SendMessage("path", body: currentPath)
             currentShapeLayer = CAShapeLayer()
-            currentShapeLayer.fillColor = UIColor.whiteColor().CGColor
+            currentShapeLayer.fillColor = self.color.CGColor
             self.layer.addSublayer(currentShapeLayer)
-            currentPath = Path()
+            self.currentPath = Path()
+            self.currentPath.color = self.color
         }
     }
     
