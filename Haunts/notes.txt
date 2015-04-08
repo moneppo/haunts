@@ -1,0 +1,9 @@
+Checklist
+-  Fix handshake
+-  Location is always nowhere?
+-  Fix color lost issue
+-  Fix disconnect problem
+-  Finish past haunts
+-  First path issue
+-  Test multiple users
+-  Static

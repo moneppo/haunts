@@ -62,15 +62,6 @@ class PastViewController: UIViewController, UICollectionViewDelegate, UICollecti
         refreshData()
     }
     
-    // Checklist
-    // Fix handshake
-    // Fix disconnect problem
-    // Finish past haunts
-    // Colors for drawing
-    // Look into notifications
-    // First path issue
-
-    
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return _images.count
     }

@@ -54,7 +54,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
         // Register cell classes
         self.peerIcons.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
-        //self.createNewHaunt()
         LocationService.start()
         
         PastViewController.initPastViewData()
@@ -342,4 +341,3 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
         return cell
     }
 }
-

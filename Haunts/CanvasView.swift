@@ -143,15 +143,6 @@ class CanvasView: UIView {
             viewRect.origin.x - hauntSize / 2, viewRect.origin.y - hauntSize / 2)
     }
     
-    // TODO FOR TEST:
-    // Additional user asks for haunt, gets back pixels = TEST
-    // Losing all connections shows nothing on the screen
-    // Save haunt
-    // Look at old haunts
-    
-    // TODO LATER:
-    // Screen rotation
-    
     func panBegan(location : CGPoint, numTouches : Int) {
         if numTouches == 1 {
             previousPoint = location

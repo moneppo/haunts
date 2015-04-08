@@ -19,6 +19,7 @@
 		964F9EC81AD3623A000677EB /* television4.png in Resources */ = {isa = PBXBuildFile; fileRef = 964F9EC51AD3623A000677EB /* television4.png */; };
 		964F9EC91AD3623A000677EB /* floppy8.png in Resources */ = {isa = PBXBuildFile; fileRef = 964F9EC61AD3623A000677EB /* floppy8.png */; };
 		964F9ECC1AD36C93000677EB /* video48.png in Resources */ = {isa = PBXBuildFile; fileRef = 964F9ECB1AD36C93000677EB /* video48.png */; };
+		964F9ECE1AD46ED0000677EB /* notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 964F9ECD1AD46ED0000677EB /* notes.txt */; };
 		967A0B781AC480050085569D /* BlockSeanceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967A0B771AC480050085569D /* BlockSeanceButton.swift */; };
 		969499A21AC480F200841E40 /* PeerKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9694999E1AC480CD00841E40 /* PeerKit.framework */; };
 		969499A31AC480F200841E40 /* PeerKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9694999E1AC480CD00841E40 /* PeerKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -26,7 +27,6 @@
 		96F1F9971AC30E5900A3E6DB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1F9961AC30E5900A3E6DB /* ViewController.swift */; };
 		96F1F99A1AC30E5900A3E6DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96F1F9981AC30E5900A3E6DB /* Main.storyboard */; };
 		96F1F99C1AC30E5900A3E6DB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96F1F99B1AC30E5900A3E6DB /* Images.xcassets */; };
-		96F1F99F1AC30E5900A3E6DB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96F1F99D1AC30E5900A3E6DB /* LaunchScreen.xib */; };
 		96F1F9AB1AC30E5A00A3E6DB /* HauntsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1F9AA1AC30E5A00A3E6DB /* HauntsTests.swift */; };
 		96F1F9B71AC3289500A3E6DB /* PeerIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1F9B61AC3289500A3E6DB /* PeerIcon.swift */; };
 /* End PBXBuildFile section */
@@ -89,6 +89,7 @@
 		964F9EC51AD3623A000677EB /* television4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = television4.png; sourceTree = "<group>"; };
 		964F9EC61AD3623A000677EB /* floppy8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = floppy8.png; sourceTree = "<group>"; };
 		964F9ECB1AD36C93000677EB /* video48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video48.png; sourceTree = "<group>"; };
+		964F9ECD1AD46ED0000677EB /* notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = notes.txt; sourceTree = "<group>"; };
 		967A0B771AC480050085569D /* BlockSeanceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockSeanceButton.swift; sourceTree = "<group>"; };
 		969499981AC480CD00841E40 /* PeerKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PeerKit.xcodeproj; path = Haunts/PeerKit/PeerKit.xcodeproj; sourceTree = "<group>"; };
 		96F1F98F1AC30E5900A3E6DB /* Haunts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Haunts.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -97,7 +98,6 @@
 		96F1F9961AC30E5900A3E6DB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		96F1F9991AC30E5900A3E6DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		96F1F99B1AC30E5900A3E6DB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		96F1F99E1AC30E5900A3E6DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		96F1F9A41AC30E5A00A3E6DB /* HauntsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HauntsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		96F1F9A91AC30E5A00A3E6DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96F1F9AA1AC30E5A00A3E6DB /* HauntsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HauntsTests.swift; sourceTree = "<group>"; };
@@ -159,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				960189C01ACDBA0900D7CBFF /* PastViewController.swift */,
+				964F9ECD1AD46ED0000677EB /* notes.txt */,
 				960189B41AC758D700D7CBFF /* CanvasView.swift */,
 				960189B81AC8962B00D7CBFF /* Util.swift */,
 				960189B61AC7B65300D7CBFF /* Math.swift */,
@@ -172,7 +173,6 @@
 				960189C21ACDBD9B00D7CBFF /* PastViewCell.swift */,
 				96F1F9B61AC3289500A3E6DB /* PeerIcon.swift */,
 				96F1F99B1AC30E5900A3E6DB /* Images.xcassets */,
-				96F1F99D1AC30E5900A3E6DB /* LaunchScreen.xib */,
 				96F1F9921AC30E5900A3E6DB /* Supporting Files */,
 			);
 			path = Haunts;
@@ -308,12 +308,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				964F9ECE1AD46ED0000677EB /* notes.txt in Resources */,
 				964F9EC91AD3623A000677EB /* floppy8.png in Resources */,
 				964F9EC71AD3623A000677EB /* hourglass7.png in Resources */,
 				964F9EC81AD3623A000677EB /* television4.png in Resources */,
 				964F9ECC1AD36C93000677EB /* video48.png in Resources */,
 				96F1F99A1AC30E5900A3E6DB /* Main.storyboard in Resources */,
-				96F1F99F1AC30E5900A3E6DB /* LaunchScreen.xib in Resources */,
 				96F1F99C1AC30E5900A3E6DB /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -377,14 +377,6 @@
 				96F1F9991AC30E5900A3E6DB /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		96F1F99D1AC30E5900A3E6DB /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				96F1F99E1AC30E5900A3E6DB /* Base */,
-			);
-			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -473,6 +465,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Haunts/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -484,6 +477,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Haunts/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
