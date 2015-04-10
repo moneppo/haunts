@@ -26,13 +26,12 @@ class PastViewController: UIViewController, UICollectionViewDelegate, UICollecti
         super.init(coder: aDecoder)
     }
     
+    @IBAction func backButtonPressed(sender: UIButton) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        var layout = UICollectionViewFlowLayout()
-        layout.estimatedItemSize = CGSizeMake(100, 100)
-        layout.sectionInset = UIEdgeInsetsMake(10, 20, 10, 20)
-        
-        self.collectionView!.collectionViewLayout = layout
         self.collectionView!.registerClass(PastViewCell.self, forCellWithReuseIdentifier: reuseID)
         self.collectionView!.delegate = self
         
@@ -73,18 +72,25 @@ class PastViewController: UIViewController, UICollectionViewDelegate, UICollecti
         return cell
     }
     
+    @objc func dismissModalView() {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-   /*     var cell:BIPhotoCollectionViewCell = collectionView.cellForItemAtIndexPath(indexPath) as BIPhotoCollectionViewCell
-        var photoViewController: BIPhotoViewController = BIPhotoViewController(nibName: nil, bundle: nil)
+        var modal = UIViewController()
+        modal.view.backgroundColor = UIColor.blackColor()
+        modal.view.userInteractionEnabled=true;
         
-        // Set photo
-        photoViewController.photo = cell.photo
+        var panView = PanView(frame:modal.view.frame)
+        panView.image = UIImage(contentsOfFile: _images[indexPath.item])
+        panView.center = self.view.center
+        modal.view.addSubview(panView)
         
-        // Set title
-        var location = BIModelManager.sharedInstance.locationAtIndex(indexPath.section)
-        photoViewController.title = location?.name
+        var modalTap = UITapGestureRecognizer(target:self, action:"dismissModalView:")
+        modalTap.numberOfTapsRequired = 2
+        modalTap.delegate = panView
+        modal.view.addGestureRecognizer(modalTap)
         
-        // Push it on nav stack
-        self.navigationController?.pushViewController(photoViewController, animated: true)*/
+        self.presentViewController(modal, animated:true, completion:nil)
     }
 }

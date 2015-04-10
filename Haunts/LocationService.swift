@@ -11,15 +11,27 @@ import CoreLocation
 
 private var _manager = CLLocationManager()
 private var _running = false
+private var _delegate = LocationDelegate()
+
+class LocationDelegate : NSObject, CLLocationManagerDelegate {
+    func locationManager(manager: CLLocationManager!,
+        didChangeAuthorizationStatus status: CLAuthorizationStatus)
+    {
+        if status == .Authorized || status == .AuthorizedWhenInUse {
+            manager.startMonitoringSignificantLocationChanges()
+            println("Location service started...")
+            _running = true
+        }
+    }
+}
 
 class LocationService {
     class func start() {
+        _manager.delegate = _delegate
         if !_running {
             if CLLocationManager.authorizationStatus() == .NotDetermined {
                 _manager.requestWhenInUseAuthorization()
             }
-            _manager.startMonitoringSignificantLocationChanges()
-            _running = true
         }
     }
 

@@ -29,7 +29,13 @@ class CanvasView: UIView {
     required init(coder : NSCoder){
         super.init(coder: coder)
         self.layer.addSublayer(currentShapeLayer)
+        currentShapeLayer.fillColor = UIColor.whiteColor().CGColor
         self.alpha = 0
+        
+        self.viewRect = CGRect(x: self.viewRect.origin.x,
+            y: self.viewRect.origin.y,
+            width: self.viewRect.width,
+            height: self.viewRect.height)
     }
     
     func generateStroke(p : Path) -> UIBezierPath {
@@ -165,6 +171,9 @@ class CanvasView: UIView {
         },
         completion: { ok in
             self.layer.sublayers = nil
+            self.currentShapeLayer = CAShapeLayer()
+            self.layer.addSublayer(self.currentShapeLayer)
+            self.currentShapeLayer.fillColor = UIColor.whiteColor().CGColor
         })
     }
     

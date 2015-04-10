@@ -15,7 +15,6 @@ let SEANCE_AGREED : Int = 1
 
 class ViewController: UIViewController, UICollectionViewDataSource, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIGestureRecognizerDelegate {
     
-    
     enum State {
         case Disconnected
         case RequestedHaunt
@@ -27,6 +26,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
     @IBOutlet var blockButton : BlockSeanceButton!
     @IBOutlet var peerIcons : UICollectionView!
     @IBOutlet var canvasView : CanvasView!
+    @IBOutlet var staticView : StaticView!
     
     @IBOutlet var pinchRecognizer : UIPinchGestureRecognizer!
     @IBOutlet var panRecognizer : UIPanGestureRecognizer!
@@ -69,6 +69,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
         panRecognizer.enabled = true
         pinchRecognizer.enabled = true
         canvasView.fadeIn()
+        staticView.fadeOut()
     }
     
     func removeCurrentHaunt() {
@@ -76,7 +77,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
         panRecognizer.enabled = true
         pinchRecognizer.enabled = true
         canvasView.fadeOut()
-
+        staticView.fadeIn()
     }
     
     func createHauntImage() -> UIImage {
@@ -151,6 +152,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
             case "createNewHaunt":
                 if self.state == State.RequestedHaunt {
                     self.createNewHaunt()
+                } else if self.state == State.CreatingNewHaunt {
+                    println("Got createNewHaunt, yup, we know")
                 } else {
                     println("Got createNewHaunt command but in another state")
                 }
@@ -244,7 +247,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
             var w : CGFloat = 0
             var a : CGFloat = 0
             c.getWhite(&w, alpha: &a)
-            if (w < 0.2) {
+            if (w < 0.25) {
                 self.canvasView.setStrokeColor(UIColor.blackColor())
             } else {
                 var r : CGFloat = 0

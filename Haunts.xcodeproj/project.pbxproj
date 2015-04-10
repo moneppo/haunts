@@ -20,6 +20,11 @@
 		964F9EC91AD3623A000677EB /* floppy8.png in Resources */ = {isa = PBXBuildFile; fileRef = 964F9EC61AD3623A000677EB /* floppy8.png */; };
 		964F9ECC1AD36C93000677EB /* video48.png in Resources */ = {isa = PBXBuildFile; fileRef = 964F9ECB1AD36C93000677EB /* video48.png */; };
 		964F9ECE1AD46ED0000677EB /* notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 964F9ECD1AD46ED0000677EB /* notes.txt */; };
+		964F9EF41AD5D913000677EB /* StaticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964F9EF31AD5D913000677EB /* StaticView.swift */; };
+		964F9EF81AD5D97A000677EB /* static2.png in Resources */ = {isa = PBXBuildFile; fileRef = 964F9EF51AD5D97A000677EB /* static2.png */; };
+		964F9EF91AD5D97A000677EB /* static1.png in Resources */ = {isa = PBXBuildFile; fileRef = 964F9EF61AD5D97A000677EB /* static1.png */; };
+		964F9EFA1AD5D97A000677EB /* static0.png in Resources */ = {isa = PBXBuildFile; fileRef = 964F9EF71AD5D97A000677EB /* static0.png */; };
+		964F9EFE1AD748A7000677EB /* PanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964F9EFD1AD748A7000677EB /* PanView.swift */; };
 		967A0B781AC480050085569D /* BlockSeanceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967A0B771AC480050085569D /* BlockSeanceButton.swift */; };
 		969499A21AC480F200841E40 /* PeerKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9694999E1AC480CD00841E40 /* PeerKit.framework */; };
 		969499A31AC480F200841E40 /* PeerKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9694999E1AC480CD00841E40 /* PeerKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -85,11 +90,16 @@
 		960189C21ACDBD9B00D7CBFF /* PastViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PastViewCell.swift; sourceTree = "<group>"; };
 		960189C41ACDF06E00D7CBFF /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		960189C91ACF294000D7CBFF /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
-		964F9EC41AD3623A000677EB /* hourglass7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hourglass7.png; sourceTree = "<group>"; };
-		964F9EC51AD3623A000677EB /* television4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = television4.png; sourceTree = "<group>"; };
-		964F9EC61AD3623A000677EB /* floppy8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = floppy8.png; sourceTree = "<group>"; };
-		964F9ECB1AD36C93000677EB /* video48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video48.png; sourceTree = "<group>"; };
+		964F9EC41AD3623A000677EB /* hourglass7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hourglass7.png; path = ../hourglass7.png; sourceTree = "<group>"; };
+		964F9EC51AD3623A000677EB /* television4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = television4.png; path = ../television4.png; sourceTree = "<group>"; };
+		964F9EC61AD3623A000677EB /* floppy8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = floppy8.png; path = ../floppy8.png; sourceTree = "<group>"; };
+		964F9ECB1AD36C93000677EB /* video48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = video48.png; path = ../video48.png; sourceTree = "<group>"; };
 		964F9ECD1AD46ED0000677EB /* notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = notes.txt; sourceTree = "<group>"; };
+		964F9EF31AD5D913000677EB /* StaticView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticView.swift; sourceTree = "<group>"; };
+		964F9EF51AD5D97A000677EB /* static2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = static2.png; path = ../static2.png; sourceTree = "<group>"; };
+		964F9EF61AD5D97A000677EB /* static1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = static1.png; path = ../static1.png; sourceTree = "<group>"; };
+		964F9EF71AD5D97A000677EB /* static0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = static0.png; path = ../static0.png; sourceTree = "<group>"; };
+		964F9EFD1AD748A7000677EB /* PanView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanView.swift; sourceTree = "<group>"; };
 		967A0B771AC480050085569D /* BlockSeanceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockSeanceButton.swift; sourceTree = "<group>"; };
 		969499981AC480CD00841E40 /* PeerKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PeerKit.xcodeproj; path = Haunts/PeerKit/PeerKit.xcodeproj; sourceTree = "<group>"; };
 		96F1F98F1AC30E5900A3E6DB /* Haunts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Haunts.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,6 +133,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		964F9EFF1AD748B7000677EB /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				964F9EF51AD5D97A000677EB /* static2.png */,
+				964F9EF61AD5D97A000677EB /* static1.png */,
+				964F9EF71AD5D97A000677EB /* static0.png */,
+				964F9ECB1AD36C93000677EB /* video48.png */,
+				964F9EC41AD3623A000677EB /* hourglass7.png */,
+				964F9EC51AD3623A000677EB /* television4.png */,
+				964F9EC61AD3623A000677EB /* floppy8.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 		969499991AC480CD00841E40 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -135,10 +159,6 @@
 		96F1F9861AC30E5900A3E6DB = {
 			isa = PBXGroup;
 			children = (
-				964F9ECB1AD36C93000677EB /* video48.png */,
-				964F9EC41AD3623A000677EB /* hourglass7.png */,
-				964F9EC51AD3623A000677EB /* television4.png */,
-				964F9EC61AD3623A000677EB /* floppy8.png */,
 				969499981AC480CD00841E40 /* PeerKit.xcodeproj */,
 				96F1F9911AC30E5900A3E6DB /* Haunts */,
 				96F1F9A71AC30E5A00A3E6DB /* HauntsTests */,
@@ -158,6 +178,9 @@
 		96F1F9911AC30E5900A3E6DB /* Haunts */ = {
 			isa = PBXGroup;
 			children = (
+				964F9EFF1AD748B7000677EB /* Images */,
+				964F9EFD1AD748A7000677EB /* PanView.swift */,
+				964F9EF31AD5D913000677EB /* StaticView.swift */,
 				960189C01ACDBA0900D7CBFF /* PastViewController.swift */,
 				964F9ECD1AD46ED0000677EB /* notes.txt */,
 				960189B41AC758D700D7CBFF /* CanvasView.swift */,
@@ -308,7 +331,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				964F9EFA1AD5D97A000677EB /* static0.png in Resources */,
+				964F9EF81AD5D97A000677EB /* static2.png in Resources */,
 				964F9ECE1AD46ED0000677EB /* notes.txt in Resources */,
+				964F9EF91AD5D97A000677EB /* static1.png in Resources */,
 				964F9EC91AD3623A000677EB /* floppy8.png in Resources */,
 				964F9EC71AD3623A000677EB /* hourglass7.png in Resources */,
 				964F9EC81AD3623A000677EB /* television4.png in Resources */,
@@ -333,12 +359,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				960189C31ACDBD9B00D7CBFF /* PastViewCell.swift in Sources */,
+				964F9EF41AD5D913000677EB /* StaticView.swift in Sources */,
 				96F1F9971AC30E5900A3E6DB /* ViewController.swift in Sources */,
 				960189B91AC8962B00D7CBFF /* Util.swift in Sources */,
 				960189B51AC758D700D7CBFF /* CanvasView.swift in Sources */,
 				967A0B781AC480050085569D /* BlockSeanceButton.swift in Sources */,
 				96F1F9B71AC3289500A3E6DB /* PeerIcon.swift in Sources */,
 				96F1F9951AC30E5900A3E6DB /* AppDelegate.swift in Sources */,
+				964F9EFE1AD748A7000677EB /* PanView.swift in Sources */,
 				960189C51ACDF06E00D7CBFF /* LocationService.swift in Sources */,
 				960189C11ACDBA0900D7CBFF /* PastViewController.swift in Sources */,
 				960189BD1ACC862C00D7CBFF /* Path.swift in Sources */,

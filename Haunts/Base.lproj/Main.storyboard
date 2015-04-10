@@ -17,6 +17,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fxD-Ww-JUO" customClass="StaticView" customModule="Haunts" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EOa-0O-YQu" customClass="CanvasView" customModule="Haunts" customModuleProvider="target">
                                 <rect key="frame" x="-1923" y="479" width="2048" height="2048"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -198,7 +202,9 @@
                             <constraint firstAttribute="centerY" secondItem="EOa-0O-YQu" secondAttribute="centerY" id="T3Z-Ig-3gW"/>
                             <constraint firstItem="Krz-1v-1oJ" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="Tml-qt-8KC"/>
                             <constraint firstItem="Jrv-8d-Rxp" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-6" id="UcB-Gn-5cq"/>
+                            <constraint firstAttribute="bottom" secondItem="fxD-Ww-JUO" secondAttribute="bottom" id="WHa-5s-q8l"/>
                             <constraint firstItem="8pk-av-p6m" firstAttribute="top" secondItem="Jrv-8d-Rxp" secondAttribute="bottom" constant="8" id="Wda-aq-TpV"/>
+                            <constraint firstItem="fxD-Ww-JUO" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Xoq-RJ-lYx"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="yp6-HX-ek3" secondAttribute="bottom" constant="8" id="Xoq-zb-JMo"/>
                             <constraint firstItem="Jrv-8d-Rxp" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="aKZ-yF-9RI"/>
                             <constraint firstItem="yp6-HX-ek3" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="aa4-MQ-CQ4"/>
@@ -206,11 +212,13 @@
                             <constraint firstAttribute="trailingMargin" secondItem="BnE-yQ-brk" secondAttribute="trailing" constant="144" id="bxd-jG-XRk"/>
                             <constraint firstAttribute="centerX" secondItem="EOa-0O-YQu" secondAttribute="centerX" id="dpN-Q2-RaN"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="HvI-XX-cRQ" secondAttribute="bottom" constant="8" id="e8w-2n-F5T"/>
+                            <constraint firstItem="fxD-Ww-JUO" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="eCh-zk-ELJ"/>
                             <constraint firstItem="8pk-av-p6m" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="56" id="eHd-W2-Mnh"/>
                             <constraint firstItem="Hbg-Jb-bxF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-6" id="efw-ep-KlU"/>
                             <constraint firstItem="Jrv-8d-Rxp" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-6" id="jzw-Lt-ryZ"/>
                             <constraint firstItem="EOa-0O-YQu" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="1" id="kkd-Ie-DgY"/>
                             <constraint firstAttribute="trailingMargin" secondItem="EOa-0O-YQu" secondAttribute="trailing" id="qFC-Mk-IBC"/>
+                            <constraint firstAttribute="trailing" secondItem="fxD-Ww-JUO" secondAttribute="trailing" id="r02-Ed-yeF"/>
                             <constraint firstItem="Krz-1v-1oJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="50" id="s7s-aL-6G3"/>
                             <constraint firstItem="8pk-av-p6m" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-6" id="tkM-AF-SLm"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="wB4-cV-725" secondAttribute="bottom" constant="8" id="uIf-XF-1YT"/>
@@ -250,6 +258,7 @@
                         <outlet property="peerIcons" destination="Krz-1v-1oJ" id="7bq-mb-oiM"/>
                         <outlet property="pinchRecognizer" destination="pbd-Qt-5dU" id="BPA-bu-Z7D"/>
                         <outlet property="seanceButton" destination="Jrv-8d-Rxp" id="ov3-vH-cAE"/>
+                        <outlet property="staticView" destination="fxD-Ww-JUO" id="cvp-P0-qys"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -281,7 +290,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="M3z-10-Zil">
                                 <rect key="frame" x="0.0" y="0.0" width="607" height="600"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="nM7-J3-Wcn">
-                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="itemSize" width="300" height="300"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -291,7 +300,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -316,7 +325,7 @@
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="wrP-NW-wlm"/>
+                                    <action selector="backButtonPressed:" destination="PbC-8P-qVp" eventType="touchUpInside" id="4Q7-g8-I7j"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -356,7 +365,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W9E-1m-Xnd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="918" y="262"/>
+            <point key="canvasLocation" x="764.5" y="262"/>
         </scene>
     </scenes>
     <resources>
