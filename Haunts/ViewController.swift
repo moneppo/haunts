@@ -51,6 +51,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
         panRecognizer.enabled = false
         pinchRecognizer.enabled = false
         
+        //createNewHaunt()
+        
         // Register cell classes
         self.peerIcons.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
@@ -93,7 +95,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
         let img = createHauntImage()
         let url = imageToTempURL(img)
         PeerKit.sendResourceAtURL(NSURL(fileURLWithPath: url), withName: "Haunt", toPeers: [peer]) { error in
-           println(error)
+            print("Sent. Any error? ")
+            println(error)
         }
     }
     
@@ -137,7 +140,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
         }
         
         PeerKit.onEvent = { peerID, event, object in
-            filter(object as Message) { message in
+            filter(object as! Message) { message in
                 println("Event: " + message.Type)
                 switch message.Type {
             case "needHaunt":
@@ -188,6 +191,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
                 break
             }
         }
+        }
         
         PeerKit.onFinishReceivingResource = { myPeerID, resourceName, peerID, localURL in
             if resourceName == "Haunt" {
@@ -200,7 +204,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
                     if let session = PeerKit.session {
                         var sublist = [MCPeerID]()
                         for o in session.connectedPeers {
-                            let peer = o as MCPeerID
+                            let peer = o as! MCPeerID
                             if peer != peerID {
                                 sublist.append(peer)
                             }
@@ -223,7 +227,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
                     }
                 }
             }
-        }
         }
     }
     
@@ -333,7 +336,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as UICollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! UICollectionViewCell
         
         // Configure the cell
         let path = NSBundle.mainBundle().pathForResource("video48", ofType:"png")

@@ -29,5 +29,5 @@ func documentsDirectory() -> NSURL
 {
     let fileManager = NSFileManager.defaultManager()
     let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-    return urls.first as NSURL
+    return urls.first as! NSURL
 }

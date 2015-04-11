@@ -18,14 +18,6 @@ class PastViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     @IBOutlet var collectionView : UICollectionView!
     
-    override init() {
-        super.init()
-    }
-
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
     @IBAction func backButtonPressed(sender: UIButton) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
@@ -66,7 +58,7 @@ class PastViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseID, forIndexPath: indexPath) as PastViewCell
+        var cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseID, forIndexPath: indexPath) as! PastViewCell
         let img = UIImage(contentsOfFile: _images[indexPath.item])
         cell.image = img
         return cell

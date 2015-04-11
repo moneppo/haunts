@@ -13,9 +13,9 @@ public class Message : NSObject, NSCoding  {
     
     required convenience public init(coder decoder: NSCoder) {
         self.init(
-            from: decoder.decodeObjectForKey("from") as MCPeerID,
-            type: decoder.decodeObjectForKey("type") as String,
-            timestamp: decoder.decodeObjectForKey("timestamp") as NSDate,
+            from: decoder.decodeObjectForKey("from") as! MCPeerID,
+            type: decoder.decodeObjectForKey("type") as! String,
+            timestamp: decoder.decodeObjectForKey("timestamp") as! NSDate,
             body: decoder.decodeObjectForKey("body"))
         //super.init(coder: decoder)
 //        self.Body = decoder.decodeObjectForKey("body")
@@ -51,7 +51,7 @@ public class Message : NSObject, NSCoding  {
 
 func SendMessage(type: String!, body: AnyObject? = nil, timestamp: NSDate = NSDate(),
                  from: MCPeerID! = PeerKit.session?.myPeerID,
-                 to: [MCPeerID]? = PeerKit.session?.connectedPeers as [MCPeerID]?) {
+                 to: [MCPeerID]? = PeerKit.session?.connectedPeers as! [MCPeerID]?) {
     let m = Message(from: from, type: type, timestamp: timestamp, body: body)
     PeerKit.sendEvent(type, object: m, toPeers: to)
 }
@@ -61,7 +61,7 @@ func RelayMessage(m : Message) {
     if let session = PeerKit.session {
         var sublist = [MCPeerID]()
         for o in session.connectedPeers {
-            let peer = o as MCPeerID
+            let peer = o as! MCPeerID
             if peer != m.From {
                 sublist.append(peer)
             }
@@ -75,7 +75,7 @@ func RelayResource(m : Message, url : NSURL) {
     if let session = PeerKit.session {
         var sublist = [MCPeerID]()
         for o in session.connectedPeers {
-            let peer = o as MCPeerID
+            let peer = o as! MCPeerID
             if peer != m.From {
                 sublist.append(peer)
             }

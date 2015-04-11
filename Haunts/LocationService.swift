@@ -17,7 +17,7 @@ class LocationDelegate : NSObject, CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager!,
         didChangeAuthorizationStatus status: CLAuthorizationStatus)
     {
-        if status == .Authorized || status == .AuthorizedWhenInUse {
+        if status == CLAuthorizationStatus.AuthorizedWhenInUse {
             manager.startMonitoringSignificantLocationChanges()
             println("Location service started...")
             _running = true

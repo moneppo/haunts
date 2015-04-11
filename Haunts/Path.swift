@@ -21,10 +21,10 @@ class Point : NSObject, NSCoding{
     
     required convenience init(coder decoder: NSCoder) {
         self.init()
-        let px = decoder.decodeObjectForKey("px") as CGFloat
-        let py = decoder.decodeObjectForKey("py") as CGFloat
+        let px = decoder.decodeObjectForKey("px") as! CGFloat
+        let py = decoder.decodeObjectForKey("py") as! CGFloat
         self.p = CGPoint(x: px, y: py)
-        self.w = decoder.decodeObjectForKey("w") as CGFloat
+        self.w = decoder.decodeObjectForKey("w") as! CGFloat
     }
     
     func encodeWithCoder(coder: NSCoder) {
@@ -42,9 +42,9 @@ class Path : NSObject, NSCoding {
 
     required convenience init(coder decoder: NSCoder) {
         self.init()
-        self.pts = decoder.decodeObjectForKey("pts") as [Point]
-        self.color = decoder.decodeObjectForKey("color") as UIColor
-        self.timestamp = decoder.decodeObjectForKey("timestamp") as NSDate
+        self.pts = decoder.decodeObjectForKey("pts") as! [Point]
+        self.color = decoder.decodeObjectForKey("color") as! UIColor
+        self.timestamp = decoder.decodeObjectForKey("timestamp") as! NSDate
     }
     
     func encodeWithCoder(coder: NSCoder) {

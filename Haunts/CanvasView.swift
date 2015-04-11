@@ -31,11 +31,6 @@ class CanvasView: UIView {
         self.layer.addSublayer(currentShapeLayer)
         currentShapeLayer.fillColor = UIColor.whiteColor().CGColor
         self.alpha = 0
-        
-        self.viewRect = CGRect(x: self.viewRect.origin.x,
-            y: self.viewRect.origin.y,
-            width: self.viewRect.width,
-            height: self.viewRect.height)
     }
     
     func generateStroke(p : Path) -> UIBezierPath {
@@ -87,6 +82,11 @@ class CanvasView: UIView {
     }
     
     func placeImage(img: UIImage, at: CGPoint) {
+        var imgLayer = CALayer()
+        imgLayer.bounds = CGRect(origin: CGPoint.zeroPoint, size: img.size)
+        imgLayer.position = at
+        imgLayer.contents = img.CGImage
+        self.layer.addSublayer(imgLayer)
     }
     
     func setStrokeColor(c: UIColor) {
@@ -158,14 +158,15 @@ class CanvasView: UIView {
     }
     
     func fadeIn() {
-        self.alpha = 0
+        self.viewRect.origin = CGPoint.zeroPoint
+        self.viewRect.size = self.superview!.bounds.size
+        updateViewRect()
         UIView.animateWithDuration(2.0) {
             self.alpha = 1
         }
     }
     
     func fadeOut() {
-        self.alpha = 1
         UIView.animateWithDuration(2.0, animations: {
             self.alpha = 0
         },

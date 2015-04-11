@@ -1,7 +1,7 @@
 Checklist
--  Test multiple users
--  First zoom
+-  Filter is broken
+-  Threeway scaling issue
 -  Reconnect button
--  Block seance icon
+-  Block seance icon / functionality
 -  Fix handshake
 -  Return from viewing past haunt crashes
