@@ -15,6 +15,8 @@
 		960189C31ACDBD9B00D7CBFF /* PastViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960189C21ACDBD9B00D7CBFF /* PastViewCell.swift */; };
 		960189C51ACDF06E00D7CBFF /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960189C41ACDF06E00D7CBFF /* LocationService.swift */; };
 		960189CA1ACF294000D7CBFF /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960189C91ACF294000D7CBFF /* Message.swift */; };
+		962E01B91ADD7D5E00961334 /* cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 962E01B71ADD7D5E00961334 /* cancel.png */; };
+		962E01BA1ADD7D5E00961334 /* connect.png in Resources */ = {isa = PBXBuildFile; fileRef = 962E01B81ADD7D5E00961334 /* connect.png */; };
 		964F9EC71AD3623A000677EB /* hourglass7.png in Resources */ = {isa = PBXBuildFile; fileRef = 964F9EC41AD3623A000677EB /* hourglass7.png */; };
 		964F9EC81AD3623A000677EB /* television4.png in Resources */ = {isa = PBXBuildFile; fileRef = 964F9EC51AD3623A000677EB /* television4.png */; };
 		964F9EC91AD3623A000677EB /* floppy8.png in Resources */ = {isa = PBXBuildFile; fileRef = 964F9EC61AD3623A000677EB /* floppy8.png */; };
@@ -25,7 +27,6 @@
 		964F9EF91AD5D97A000677EB /* static1.png in Resources */ = {isa = PBXBuildFile; fileRef = 964F9EF61AD5D97A000677EB /* static1.png */; };
 		964F9EFA1AD5D97A000677EB /* static0.png in Resources */ = {isa = PBXBuildFile; fileRef = 964F9EF71AD5D97A000677EB /* static0.png */; };
 		964F9EFE1AD748A7000677EB /* PanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964F9EFD1AD748A7000677EB /* PanView.swift */; };
-		967A0B781AC480050085569D /* BlockSeanceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967A0B771AC480050085569D /* BlockSeanceButton.swift */; };
 		969499A21AC480F200841E40 /* PeerKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9694999E1AC480CD00841E40 /* PeerKit.framework */; };
 		969499A31AC480F200841E40 /* PeerKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9694999E1AC480CD00841E40 /* PeerKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		96F1F9951AC30E5900A3E6DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1F9941AC30E5900A3E6DB /* AppDelegate.swift */; };
@@ -90,6 +91,8 @@
 		960189C21ACDBD9B00D7CBFF /* PastViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PastViewCell.swift; sourceTree = "<group>"; };
 		960189C41ACDF06E00D7CBFF /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		960189C91ACF294000D7CBFF /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		962E01B71ADD7D5E00961334 /* cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cancel.png; path = ../cancel.png; sourceTree = "<group>"; };
+		962E01B81ADD7D5E00961334 /* connect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = connect.png; path = ../connect.png; sourceTree = "<group>"; };
 		964F9EC41AD3623A000677EB /* hourglass7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hourglass7.png; path = ../hourglass7.png; sourceTree = "<group>"; };
 		964F9EC51AD3623A000677EB /* television4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = television4.png; path = ../television4.png; sourceTree = "<group>"; };
 		964F9EC61AD3623A000677EB /* floppy8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = floppy8.png; path = ../floppy8.png; sourceTree = "<group>"; };
@@ -100,7 +103,6 @@
 		964F9EF61AD5D97A000677EB /* static1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = static1.png; path = ../static1.png; sourceTree = "<group>"; };
 		964F9EF71AD5D97A000677EB /* static0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = static0.png; path = ../static0.png; sourceTree = "<group>"; };
 		964F9EFD1AD748A7000677EB /* PanView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanView.swift; sourceTree = "<group>"; };
-		967A0B771AC480050085569D /* BlockSeanceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockSeanceButton.swift; sourceTree = "<group>"; };
 		969499981AC480CD00841E40 /* PeerKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PeerKit.xcodeproj; path = Haunts/PeerKit/PeerKit.xcodeproj; sourceTree = "<group>"; };
 		96F1F98F1AC30E5900A3E6DB /* Haunts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Haunts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96F1F9931AC30E5900A3E6DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -136,6 +138,8 @@
 		964F9EFF1AD748B7000677EB /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				962E01B81ADD7D5E00961334 /* connect.png */,
+				962E01B71ADD7D5E00961334 /* cancel.png */,
 				964F9EF51AD5D97A000677EB /* static2.png */,
 				964F9EF61AD5D97A000677EB /* static1.png */,
 				964F9EF71AD5D97A000677EB /* static0.png */,
@@ -186,7 +190,6 @@
 				960189B41AC758D700D7CBFF /* CanvasView.swift */,
 				960189B81AC8962B00D7CBFF /* Util.swift */,
 				960189B61AC7B65300D7CBFF /* Math.swift */,
-				967A0B771AC480050085569D /* BlockSeanceButton.swift */,
 				96F1F9941AC30E5900A3E6DB /* AppDelegate.swift */,
 				96F1F9961AC30E5900A3E6DB /* ViewController.swift */,
 				960189C91ACF294000D7CBFF /* Message.swift */,
@@ -335,6 +338,8 @@
 				964F9EF81AD5D97A000677EB /* static2.png in Resources */,
 				964F9ECE1AD46ED0000677EB /* notes.txt in Resources */,
 				964F9EF91AD5D97A000677EB /* static1.png in Resources */,
+				962E01BA1ADD7D5E00961334 /* connect.png in Resources */,
+				962E01B91ADD7D5E00961334 /* cancel.png in Resources */,
 				964F9EC91AD3623A000677EB /* floppy8.png in Resources */,
 				964F9EC71AD3623A000677EB /* hourglass7.png in Resources */,
 				964F9EC81AD3623A000677EB /* television4.png in Resources */,
@@ -363,7 +368,6 @@
 				96F1F9971AC30E5900A3E6DB /* ViewController.swift in Sources */,
 				960189B91AC8962B00D7CBFF /* Util.swift in Sources */,
 				960189B51AC758D700D7CBFF /* CanvasView.swift in Sources */,
-				967A0B781AC480050085569D /* BlockSeanceButton.swift in Sources */,
 				96F1F9B71AC3289500A3E6DB /* PeerIcon.swift in Sources */,
 				96F1F9951AC30E5900A3E6DB /* AppDelegate.swift in Sources */,
 				964F9EFE1AD748A7000677EB /* PanView.swift in Sources */,

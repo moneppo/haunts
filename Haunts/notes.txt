@@ -1,7 +1,7 @@
 Checklist
--  Filter is broken
--  Threeway scaling issue
--  Reconnect button
--  Block seance icon / functionality
--  Fix handshake
+-  Scale issue
 -  Return from viewing past haunt crashes
+
+-  Seance Functionality - test
+-  Fix handshake - test
+

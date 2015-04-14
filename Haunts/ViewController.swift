@@ -23,7 +23,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
     }
     
     @IBOutlet var seanceButton : UIButton!
-    @IBOutlet var blockButton : BlockSeanceButton!
+    @IBOutlet var blockButton : UIButton!
     @IBOutlet var peerIcons : UICollectionView!
     @IBOutlet var canvasView : CanvasView!
     @IBOutlet var staticView : StaticView!
@@ -70,6 +70,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
         self.state = State.Connected
         panRecognizer.enabled = true
         pinchRecognizer.enabled = true
+        blockButton.hidden = true
         canvasView.fadeIn()
         staticView.fadeOut()
     }
@@ -176,6 +177,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
                     self.seanceTotal++
                     if self.seanceTotal >= SEANCE_AGREED {
                         self.seanceTotal = 0
+                        self.blockButton.hidden = true
                         self.saveHaunt()
                     }
                     
