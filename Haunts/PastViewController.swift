@@ -75,10 +75,14 @@ class PastViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         var panView = PanView(frame:modal.view.frame)
         panView.image = UIImage(contentsOfFile: _images[indexPath.item])
-        panView.center = self.view.center
+        panView.backgroundColor = UIColor.greenColor()
         modal.view.addSubview(panView)
-        
-        var modalTap = UITapGestureRecognizer(target:self, action:"dismissModalView:")
+       // panView.center = modal.view.center
+        panView.viewRect.origin = CGPoint(x: 1500, y: 1500)
+        panView.viewRect.size = modal.view.bounds.size
+        panView.updateViewRect()
+    
+        var modalTap = UITapGestureRecognizer(target:self, action:"dismissModalView")
         modalTap.numberOfTapsRequired = 2
         modalTap.delegate = panView
         modal.view.addGestureRecognizer(modalTap)

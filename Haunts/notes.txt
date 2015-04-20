@@ -1,7 +1,7 @@
 Checklist
--  Scale issue
--  Return from viewing past haunt crashes
+-  Reconnect is totally broken
 
 -  Seance Functionality - test
 -  Fix handshake - test
+-  Two touch often ends in path
 

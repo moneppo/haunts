@@ -7,11 +7,9 @@ import UIKit
 import PeerKit
 
 class PanView: UIImageView, UIGestureRecognizerDelegate {
-    let hauntSize = CGFloat(3072)
     
     var panStart : CGPoint = CGPoint.zeroPoint
     var minZoom : CGFloat = CGFloat(0.0)
-    var panBounds : CGRect = CGRect.infiniteRect
     
     var viewRect : CGRect = CGRect.zeroRect
     
@@ -35,6 +33,7 @@ class PanView: UIImageView, UIGestureRecognizerDelegate {
         pinchRecognizer.delegate = self
         self.userInteractionEnabled = true
         self.multipleTouchEnabled = true
+    
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer,
@@ -64,59 +63,67 @@ class PanView: UIImageView, UIGestureRecognizerDelegate {
 
     
     func updateViewRect() {
-        let minScaleX = self.superview!.bounds.width / hauntSize
-        let minScaleY = self.superview!.bounds.height / hauntSize
-        
-        let scaleX = self.superview!.bounds.width / viewRect.width
-        let scaleY = self.superview!.bounds.height / viewRect.height
-        
-        if viewRect.origin.x > hauntSize - viewRect.width / 2 {
-            viewRect.origin.x = hauntSize - viewRect.width / 2
+        if let img = self.image {
+            let minScaleX = self.superview!.bounds.width / img.size.width
+            let minScaleY = self.superview!.bounds.height / img.size.height
+            
+            let scaleX = self.superview!.bounds.width / viewRect.width
+            let scaleY = self.superview!.bounds.height / viewRect.height
+            
+            if viewRect.origin.x > img.size.width - viewRect.width / 2 {
+                viewRect.origin.x = img.size.width - viewRect.width / 2
+            }
+            
+            if viewRect.origin.x < viewRect.width / 2 {
+                viewRect.origin.x = viewRect.width / 2
+            }
+            
+            if viewRect.origin.y > img.size.height - viewRect.height / 2 {
+                viewRect.origin.y = img.size.height - viewRect.height / 2
+            }
+            
+            if viewRect.origin.y < viewRect.height / 2 {
+                viewRect.origin.y = viewRect.height / 2
+            }
+            
+            
+            if (scaleX > 1.0 || scaleY > 1.0) {
+                viewRect.size.width = self.superview!.bounds.width
+                viewRect.size.height = self.superview!.bounds.height
+            }
+            
+            if scaleX < minScaleX {
+                viewRect.size.width = self.superview!.bounds.width / minScaleX
+                viewRect.size.height = self.superview!.bounds.height / minScaleX
+            }
+            
+            if scaleY < minScaleY {
+                viewRect.size.width = self.superview!.bounds.width / minScaleY
+                viewRect.size.height = self.superview!.bounds.height / minScaleY
+            }
+            
+            let scale = self.superview!.bounds.height / viewRect.height
+            
+            // I actually treat the origin as the center
+            self.transform = CGAffineTransformMakeScale(scale, scale)
+            self.transform = CGAffineTransformTranslate(
+                self.transform,
+                viewRect.origin.x - img.size.width / 2,
+                viewRect.origin.y - img.size.height / 2)
         }
-        
-        if viewRect.origin.x < viewRect.width / 2 {
-            viewRect.origin.x = viewRect.width / 2
-        }
-        
-        if viewRect.origin.y > hauntSize  - viewRect.height / 2 {
-            viewRect.origin.y = hauntSize  - viewRect.height / 2
-        }
-        
-        if viewRect.origin.y < viewRect.height / 2 {
-            viewRect.origin.y = viewRect.height / 2
-        }
-        
-        
-        if (scaleX > 1.0 || scaleY > 1.0) {
-            viewRect.size.width = self.superview!.bounds.width
-            viewRect.size.height = self.superview!.bounds.height
-        }
-        
-        if scaleX < minScaleX {
-            viewRect.size.width = self.superview!.bounds.width / minScaleX
-            viewRect.size.height = self.superview!.bounds.height / minScaleX
-        }
-        
-        if scaleY < minScaleY {
-            viewRect.size.width = self.superview!.bounds.width / minScaleY
-            viewRect.size.height = self.superview!.bounds.height / minScaleY
-        }
-        
-        let scale = self.superview!.bounds.height / viewRect.height
-        
-        // I actually treat the origin as the center
-        self.transform = CGAffineTransformMakeScale(scale, scale)
-        self.transform = CGAffineTransformTranslate(self.transform,
-            viewRect.origin.x - hauntSize / 2, viewRect.origin.y - hauntSize / 2)
     }
     
     func panBegan(location : CGPoint, numTouches : Int) {
-        panStart = location
+        if  numTouches == 2 {
+            panStart = location
+        }
     }
     
     func panMoved(location : CGPoint, numTouches : Int) {
-        viewRect.origin = viewRect.origin + location - panStart
-        updateViewRect()
+        if numTouches == 2 {
+            viewRect.origin = viewRect.origin + location - panStart
+            updateViewRect()
+        }
     }
     
     func pinchMoved(scale : CGFloat) {

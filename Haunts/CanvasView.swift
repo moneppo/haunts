@@ -83,8 +83,8 @@ class CanvasView: UIView {
     
     func placeImage(img: UIImage, at: CGPoint) {
         var imgLayer = CALayer()
-        imgLayer.bounds = CGRect(origin: CGPoint.zeroPoint, size: img.size)
-        imgLayer.position = at
+        imgLayer.bounds = self.bounds
+        imgLayer.position = at + CGPoint(x:self.bounds.width / 2, y:self.bounds.height / 2)
         imgLayer.contents = img.CGImage
         self.layer.addSublayer(imgLayer)
     }
