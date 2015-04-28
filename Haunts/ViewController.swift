@@ -77,14 +77,15 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
     
     func removeCurrentHaunt() {
         self.state = State.Disconnected
-        panRecognizer.enabled = true
-        pinchRecognizer.enabled = true
+        panRecognizer.enabled = false
+        pinchRecognizer.enabled = false
         canvasView.fadeOut()
         staticView.fadeIn()
     }
     
     func createHauntImage() -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(canvasView.bounds.size, true, 0.0)
+        UIGraphicsBeginImageContextWithOptions(
+            CGSize(width: canvasView.hauntSize, height: canvasView.hauntSize), true, 0.0)
         let context = UIGraphicsGetCurrentContext()
         self.canvasView.layer.renderInContext(context)
         let img = UIGraphicsGetImageFromCurrentImageContext();
@@ -104,22 +105,35 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
     func saveHaunt() {
         let dir = documentsDirectory()
         let locString = LocationService.getLocationString()
-        let path = dir.URLByAppendingPathComponent(locString)//stringByAppendingPathComponent(locString)
+        let path = dir.URLByAppendingPathComponent(locString)
+        let thumbPath = path.URLByAppendingPathComponent("thumbs")
+        
         var error : NSError?
         if !NSFileManager.defaultManager().fileExistsAtPath(path.path!) {
             NSFileManager.defaultManager().createDirectoryAtPath(path.path!,
                 withIntermediateDirectories: true, attributes: nil, error: &error)
         }
+        
+        if !NSFileManager.defaultManager().fileExistsAtPath(thumbPath.path!) {
+            NSFileManager.defaultManager().createDirectoryAtPath(thumbPath.path!,
+                withIntermediateDirectories: true, attributes: nil, error: &error)
+        }
         let df = NSDateFormatter()
         df.dateFormat = "yyyy-MM-dd HH-mm-ss"
-        let imgPath = path.path! + "/" + df.stringFromDate(NSDate()) + ".png";
-        saveImage(self.createHauntImage(), imgPath)
+        //let imgPath = path.path! + "/" + df.stringFromDate(NSDate()) + ".png";
+        let imgURL = path.URLByAppendingPathComponent(df.stringFromDate(NSDate()))
+            .URLByAppendingPathExtension("png")
+        let thumbURL = thumbPath.URLByAppendingPathComponent(df.stringFromDate(NSDate()))
+            .URLByAppendingPathExtension("png")
+        saveImage(self.createHauntImage(), imgURL, thumbURL)
+        
         NSNotificationCenter.defaultCenter().postNotificationName("Haunts_NewSaved", object:nil)
     }
     
     func setupPeerConnections() {
         PeerKit.onConnect = { myPeerID, peerID in
             print("Connect: ")
+            self.staticView.spin(self.staticView.reconnectButton, duration: 5.0, rotations: 1.0, repeat: 0)
             println(peerID)
             self.peerIcons.reloadData()
             if let session = PeerKit.session {
@@ -136,6 +150,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
             if let session = PeerKit.session {
                 if session.connectedPeers.count == 0 {
                     self.removeCurrentHaunt()
+                    session.disconnect()
+
+                    PeerKit.stopTransceiving()
+                    PeerKit.transceive("com-moneppo-Wax")
                 }
             }
         }

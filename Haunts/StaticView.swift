@@ -81,7 +81,9 @@ class StaticView: UIImageView {
         spin(reconnectButton, duration: 5.0, rotations: 1.0, repeat: 0)
         
         PeerKit.stopTransceiving()
-        PeerKit.transceive("com-moneppo-Wax")
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {
+            PeerKit.transceive("com-moneppo-Wax")
+        }
     }
     
     func fadeOut() {

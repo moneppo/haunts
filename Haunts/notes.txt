@@ -1,7 +1,10 @@
 Checklist
--  Reconnect is totally broken
+- PanView is borked
+- Seance issues double save
 
+-  Ordering connectivity issue - still there?
 -  Seance Functionality - test
 -  Fix handshake - test
 -  Two touch often ends in path
+-  Reconnect causes deja vus
 

@@ -26,7 +26,7 @@
 		964F9EF81AD5D97A000677EB /* static2.png in Resources */ = {isa = PBXBuildFile; fileRef = 964F9EF51AD5D97A000677EB /* static2.png */; };
 		964F9EF91AD5D97A000677EB /* static1.png in Resources */ = {isa = PBXBuildFile; fileRef = 964F9EF61AD5D97A000677EB /* static1.png */; };
 		964F9EFA1AD5D97A000677EB /* static0.png in Resources */ = {isa = PBXBuildFile; fileRef = 964F9EF71AD5D97A000677EB /* static0.png */; };
-		964F9EFE1AD748A7000677EB /* PanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964F9EFD1AD748A7000677EB /* PanView.swift */; };
+		9672240F1AF047C300B7C71D /* PastImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9672240E1AF047C300B7C71D /* PastImageViewController.swift */; };
 		969499A21AC480F200841E40 /* PeerKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9694999E1AC480CD00841E40 /* PeerKit.framework */; };
 		969499A31AC480F200841E40 /* PeerKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9694999E1AC480CD00841E40 /* PeerKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		96F1F9951AC30E5900A3E6DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1F9941AC30E5900A3E6DB /* AppDelegate.swift */; };
@@ -102,7 +102,7 @@
 		964F9EF51AD5D97A000677EB /* static2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = static2.png; path = ../static2.png; sourceTree = "<group>"; };
 		964F9EF61AD5D97A000677EB /* static1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = static1.png; path = ../static1.png; sourceTree = "<group>"; };
 		964F9EF71AD5D97A000677EB /* static0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = static0.png; path = ../static0.png; sourceTree = "<group>"; };
-		964F9EFD1AD748A7000677EB /* PanView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanView.swift; sourceTree = "<group>"; };
+		9672240E1AF047C300B7C71D /* PastImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PastImageViewController.swift; sourceTree = "<group>"; };
 		969499981AC480CD00841E40 /* PeerKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PeerKit.xcodeproj; path = Haunts/PeerKit/PeerKit.xcodeproj; sourceTree = "<group>"; };
 		96F1F98F1AC30E5900A3E6DB /* Haunts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Haunts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96F1F9931AC30E5900A3E6DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -183,9 +183,9 @@
 			isa = PBXGroup;
 			children = (
 				964F9EFF1AD748B7000677EB /* Images */,
-				964F9EFD1AD748A7000677EB /* PanView.swift */,
 				964F9EF31AD5D913000677EB /* StaticView.swift */,
 				960189C01ACDBA0900D7CBFF /* PastViewController.swift */,
+				9672240E1AF047C300B7C71D /* PastImageViewController.swift */,
 				964F9ECD1AD46ED0000677EB /* notes.txt */,
 				960189B41AC758D700D7CBFF /* CanvasView.swift */,
 				960189B81AC8962B00D7CBFF /* Util.swift */,
@@ -369,8 +369,8 @@
 				960189B91AC8962B00D7CBFF /* Util.swift in Sources */,
 				960189B51AC758D700D7CBFF /* CanvasView.swift in Sources */,
 				96F1F9B71AC3289500A3E6DB /* PeerIcon.swift in Sources */,
+				9672240F1AF047C300B7C71D /* PastImageViewController.swift in Sources */,
 				96F1F9951AC30E5900A3E6DB /* AppDelegate.swift in Sources */,
-				964F9EFE1AD748A7000677EB /* PanView.swift in Sources */,
 				960189C51ACDF06E00D7CBFF /* LocationService.swift in Sources */,
 				960189C11ACDBA0900D7CBFF /* PastViewController.swift in Sources */,
 				960189BD1ACC862C00D7CBFF /* Path.swift in Sources */,

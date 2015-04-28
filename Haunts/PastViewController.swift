@@ -12,6 +12,7 @@
 import UIKit
 
 private var _images = [String]()
+private var _thumbs = [String]()
 
 class PastViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     let reuseID = NSStringFromClass(PastViewCell.self)
@@ -33,13 +34,22 @@ class PastViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     class func refreshData() {
         let docsDir = documentsDirectory()
-        let path = docsDir.path! + "/" + LocationService.getLocationString() + "/"
+        let path = docsDir.path! + "/" + LocationService.getLocationString()
         var error = NSErrorPointer()
         let contents = NSFileManager.defaultManager().contentsOfDirectoryAtPath(path, error: error)
         if let c = contents as? [String] {
             _images = c
             for (i, img) in enumerate(_images) {
-                _images[i] = path + img
+                _images[i] = path + "/" + img
+            }
+        }
+        
+        let thumbsPath = docsDir.path! + "/" + LocationService.getLocationString() + "/thumbs"
+        let thumbs = NSFileManager.defaultManager().contentsOfDirectoryAtPath(thumbsPath, error: error)
+        if let c = thumbs as? [String] {
+            _thumbs = c
+            for (i, img) in enumerate(_thumbs) {
+                _thumbs[i] = thumbsPath + "/" + img
             }
         }
     }
@@ -54,12 +64,13 @@ class PastViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return _images.count
+        return _thumbs.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         var cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseID, forIndexPath: indexPath) as! PastViewCell
-        let img = UIImage(contentsOfFile: _images[indexPath.item])
+        let path = _thumbs[indexPath.item]
+        let img = UIImage(contentsOfFile:path)
         cell.image = img
         return cell
     }
@@ -69,24 +80,18 @@ class PastViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        var modal = UIViewController()
-        modal.view.backgroundColor = UIColor.blackColor()
-        modal.view.userInteractionEnabled=true;
-        
-        var panView = PanView(frame:modal.view.frame)
-        panView.image = UIImage(contentsOfFile: _images[indexPath.item])
-        panView.backgroundColor = UIColor.greenColor()
-        modal.view.addSubview(panView)
-       // panView.center = modal.view.center
-        panView.viewRect.origin = CGPoint(x: 1500, y: 1500)
-        panView.viewRect.size = modal.view.bounds.size
-        panView.updateViewRect()
-    
-        var modalTap = UITapGestureRecognizer(target:self, action:"dismissModalView")
-        modalTap.numberOfTapsRequired = 2
-        modalTap.delegate = panView
-        modal.view.addGestureRecognizer(modalTap)
-        
-        self.presentViewController(modal, animated:true, completion:nil)
+
+        self.view.backgroundColor = UIColor.blueColor()
+        if let img = UIImage(contentsOfFile: _images[indexPath.item]) {
+            var modal = PastImageViewController()
+
+            modal.image = img
+            modal.view.backgroundColor = UIColor.greenColor()
+            
+            var modalTap = UITapGestureRecognizer(target:self, action:"dismissModalView")
+            modalTap.numberOfTapsRequired = 2
+            modal.view.addGestureRecognizer(modalTap)
+            self.presentViewController(modal, animated:true, completion:nil)
+        }
     }
 }

@@ -8,7 +8,7 @@ import PeerKit
 
 class CanvasView: UIView {
     
-    let hauntSize = CGFloat(3072)
+    let hauntSize = CGFloat(2000)
     
     let MIN_DIST = CGFloat(7.0)
     let MIN_THICKNESS = CGFloat(1)
