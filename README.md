@@ -15,6 +15,14 @@ The hope is to demonstrate that meshes provide alternative experiences for digit
 * Canvases are saved to the general GPS location, and you must be in that location to view them. 
 * If there is no GPS signal available, canvases are saved in a special location called "nowhere."
 
+## Future Steps
+* Stabilize mesh protocol
+* Publish app to the store
+* Split the mesh layer into a library for use in other apps, particularly for activism/emergency
+* Larger canvas
 
+## Known Issues
+* Saving currently happens doubly due to a bug in the filtering of messages through the mesh network.
+* After a while of drawing, the app will slow as it stores strokes as raw geometry. I'm looking into occasional caching of the canvas into a bitmap to fix this.
 
 Icons by [Freepik](www.freepik.com)
