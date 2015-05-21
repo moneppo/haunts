@@ -18,7 +18,7 @@ class PastImageViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         
         scrollView = UIScrollView(frame: self.view.frame)
-
+        scrollView.delegate = self
         imageView = UIImageView(image: image)
         imageView.frame = CGRect(origin: CGPoint(x: 0, y: 0), size:image.size)
         scrollView.addSubview(imageView)
@@ -27,23 +27,14 @@ class PastImageViewController: UIViewController, UIScrollViewDelegate {
         
         scrollView.contentSize = image.size
         
-        /*var doubleTapRecognizer = UITapGestureRecognizer(target: self, action: "scrollViewDoubleTapped:")
-        doubleTapRecognizer.numberOfTapsRequired = 2
-        doubleTapRecognizer.numberOfTouchesRequired = 1
-        scrollView.addGestureRecognizer(doubleTapRecognizer)*/
-        
         let scrollViewFrame = scrollView.frame
         let scaleWidth = scrollViewFrame.size.width / scrollView.contentSize.width
         let scaleHeight = scrollViewFrame.size.height / scrollView.contentSize.height
-        let minScale = min(scaleWidth, scaleHeight);
+        let minScale = max(scaleWidth, scaleHeight);
+        
+        scrollView.maximumZoomScale = 1.0;
         scrollView.minimumZoomScale = minScale;
-        
-        // 5
-        scrollView.maximumZoomScale = 1.0
         scrollView.zoomScale = minScale;
-        
-        // 6
-        centerScrollViewContents()
     }
 
     override func didReceiveMemoryWarning() {
@@ -69,25 +60,7 @@ class PastImageViewController: UIViewController, UIScrollViewDelegate {
         
         imageView.frame = contentsFrame
     }
-    
-  /*  func scrollViewDoubleTapped(recognizer: UITapGestureRecognizer) {
-        let pointInView = recognizer.locationInView(imageView)
-        
-        var newZoomScale = scrollView.zoomScale * 1.5
-        newZoomScale = min(newZoomScale, scrollView.maximumZoomScale)
-        
-        let scrollViewSize = scrollView.bounds.size
-        let w = scrollViewSize.width / newZoomScale
-        let h = scrollViewSize.height / newZoomScale
-        let x = pointInView.x - (w / 2.0)
-        let y = pointInView.y - (h / 2.0)
-        
-        let rectToZoomTo = CGRectMake(x, y, w, h);
-    
-        scrollView.zoomToRect(rectToZoomTo, animated: true)
-        
-    }*/
-    
+
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
         return imageView
     }

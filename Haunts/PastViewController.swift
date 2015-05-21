@@ -86,7 +86,7 @@ class PastViewController: UIViewController, UICollectionViewDelegate, UICollecti
             var modal = PastImageViewController()
 
             modal.image = img
-            modal.view.backgroundColor = UIColor.greenColor()
+            modal.view.backgroundColor = UIColor.darkGrayColor()
             
             var modalTap = UITapGestureRecognizer(target:self, action:"dismissModalView")
             modalTap.numberOfTapsRequired = 2

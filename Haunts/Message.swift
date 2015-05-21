@@ -53,6 +53,12 @@ func SendMessage(type: String!, body: AnyObject? = nil, timestamp: NSDate = NSDa
                  from: MCPeerID! = PeerKit.session?.myPeerID,
                  to: [MCPeerID]? = PeerKit.session?.connectedPeers as! [MCPeerID]?) {
     let m = Message(from: from, type: type, timestamp: timestamp, body: body)
+                    
+    if messages.count > MESSAGE_COUNT {
+        messages.removeAtIndex(0)
+    }
+    
+    messages.append(m)
     PeerKit.sendEvent(type, object: m, toPeers: to)
 }
 
@@ -62,9 +68,9 @@ func RelayMessage(m : Message) {
         var sublist = [MCPeerID]()
         for o in session.connectedPeers {
             let peer = o as! MCPeerID
-            //if peer != m.From {
+            if peer != m.From {
                 sublist.append(peer)
-            //}
+            }
         }
         PeerKit.sendEvent(m.Type, object: m, toPeers: sublist)
     }
@@ -114,8 +120,6 @@ private var messages = [Message]()
 private let MESSAGE_COUNT : Int = 10
     
 func filter(message: Message, handler: MessageResponse) {
-    let m0 = messages
-    println(m0)
     for m in messages {
         if m == message {
             println("deja vu " + m.Type)

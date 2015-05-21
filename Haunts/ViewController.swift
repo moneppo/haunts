@@ -11,7 +11,7 @@ import PeerKit
 import MultipeerConnectivity
 
 let reuseIdentifier = "PeerCell"
-let SEANCE_AGREED : Int = 1
+let SEANCE_AGREED : Int = 2
 
 class ViewController: UIViewController, UICollectionViewDataSource, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIGestureRecognizerDelegate {
     
@@ -34,10 +34,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
     var state : State = State.Disconnected
     var seanceTotal : Int = 0
     var imagePicker: UIImagePickerController!
+    var seanceSelected : Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        blockButton.hidden = true
+        self.blockButton.hidden = true
         
         self.peerIcons.dataSource = self
         self.peerIcons.reloadData()
@@ -70,7 +71,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
         self.state = State.Connected
         panRecognizer.enabled = true
         pinchRecognizer.enabled = true
-        blockButton.hidden = true
+        self.blockButton.hidden = true
         canvasView.fadeIn()
         staticView.fadeOut()
     }
@@ -196,6 +197,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
                     if self.seanceTotal >= SEANCE_AGREED {
                         self.seanceTotal = 0
                         self.blockButton.hidden = true
+                        self.seanceSelected = false
                         self.saveHaunt()
                     }
                     
@@ -286,15 +288,31 @@ class ViewController: UIViewController, UICollectionViewDataSource, UINavigation
     
     @IBAction func seance(sender: UIButton) {
         if self.state == State.Connected {
-            self.blockButton.hidden = false
-            self.seanceTotal++
-            if self.seanceTotal >= SEANCE_AGREED {
-                self.seanceTotal = 0
-                self.saveHaunt()
-            }
+            if !self.seanceSelected {
+                self.seanceSelected = true
+                self.blockButton.hidden = false
+                self.seanceTotal++
+                if self.seanceTotal >= SEANCE_AGREED {
+                    self.blockButton.hidden = true
+                    self.seanceTotal = 0
+                    self.seanceSelected = false
+                    self.saveHaunt()
+                }
 
+                if let session = PeerKit.session {
+                    SendMessage("seance")
+                }
+            }
+        }
+    }
+    
+    @IBAction func blockSeance(sender: UIButton) {
+        self.blockButton.hidden = true
+        self.seanceTotal = 0
+        
+        if self.state == State.Connected {
             if let session = PeerKit.session {
-                SendMessage("seance")
+                SendMessage("block")
             }
         }
     }

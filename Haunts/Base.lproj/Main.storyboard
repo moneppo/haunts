@@ -56,6 +56,27 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8pk-av-p6m">
+                                <rect key="frame" x="10" y="100" width="64" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="64" id="BUv-kG-SOj"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="VGz-bx-0qK"/>
+                                    <constraint firstAttribute="width" constant="64" id="kLD-2e-rKu"/>
+                                    <constraint firstAttribute="height" constant="64" id="tnc-LI-FD2"/>
+                                </constraints>
+                                <state key="normal" image="cancel.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="BUv-kG-SOj"/>
+                                        <exclude reference="VGz-bx-0qK"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="blockSeance:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XJM-E8-cNg"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yp6-HX-ek3">
                                 <rect key="frame" x="520" y="528" width="64" height="64"/>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
@@ -85,24 +106,6 @@
                                 <connections>
                                     <action selector="seance:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2Sp-fT-eBv"/>
                                 </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8pk-av-p6m">
-                                <rect key="frame" x="10" y="92" width="64" height="64"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="64" id="BUv-kG-SOj"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="VGz-bx-0qK"/>
-                                    <constraint firstAttribute="width" constant="64" id="kLD-2e-rKu"/>
-                                    <constraint firstAttribute="height" constant="64" id="tnc-LI-FD2"/>
-                                </constraints>
-                                <state key="normal" image="cancel.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="BUv-kG-SOj"/>
-                                        <exclude reference="VGz-bx-0qK"/>
-                                    </mask>
-                                </variation>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hbg-Jb-bxF">
                                 <rect key="frame" x="10" y="528" width="64" height="64"/>
@@ -204,14 +207,12 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="raS-TD-x8B" secondAttribute="bottom" constant="8" id="OC7-Jt-2SW"/>
                             <constraint firstItem="Krz-1v-1oJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="66" id="ODT-Gz-Kws"/>
                             <constraint firstItem="EOa-0O-YQu" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Osg-hZ-g2t"/>
-                            <constraint firstItem="8pk-av-p6m" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="72" id="Pqc-Ib-jw9"/>
                             <constraint firstAttribute="trailing" secondItem="EOa-0O-YQu" secondAttribute="trailing" constant="6" id="Q0N-V5-VhP"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Krz-1v-1oJ" secondAttribute="bottom" constant="532" id="Qe5-a3-RQy"/>
                             <constraint firstAttribute="centerY" secondItem="EOa-0O-YQu" secondAttribute="centerY" id="T3Z-Ig-3gW"/>
                             <constraint firstItem="Krz-1v-1oJ" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="Tml-qt-8KC"/>
                             <constraint firstItem="Jrv-8d-Rxp" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-6" id="UcB-Gn-5cq"/>
                             <constraint firstAttribute="bottom" secondItem="fxD-Ww-JUO" secondAttribute="bottom" id="WHa-5s-q8l"/>
-                            <constraint firstItem="8pk-av-p6m" firstAttribute="top" secondItem="Jrv-8d-Rxp" secondAttribute="bottom" constant="8" id="Wda-aq-TpV"/>
                             <constraint firstItem="fxD-Ww-JUO" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Xoq-RJ-lYx"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="yp6-HX-ek3" secondAttribute="bottom" constant="8" id="Xoq-zb-JMo"/>
                             <constraint firstItem="Jrv-8d-Rxp" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="aKZ-yF-9RI"/>
@@ -221,14 +222,14 @@
                             <constraint firstAttribute="centerX" secondItem="EOa-0O-YQu" secondAttribute="centerX" id="dpN-Q2-RaN"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="HvI-XX-cRQ" secondAttribute="bottom" constant="8" id="e8w-2n-F5T"/>
                             <constraint firstItem="fxD-Ww-JUO" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="eCh-zk-ELJ"/>
-                            <constraint firstItem="8pk-av-p6m" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="56" id="eHd-W2-Mnh"/>
                             <constraint firstItem="Hbg-Jb-bxF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-6" id="efw-ep-KlU"/>
                             <constraint firstItem="Jrv-8d-Rxp" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-6" id="jzw-Lt-ryZ"/>
+                            <constraint firstItem="8pk-av-p6m" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="10" id="kFy-8t-0rQ"/>
                             <constraint firstItem="EOa-0O-YQu" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="1" id="kkd-Ie-DgY"/>
                             <constraint firstAttribute="trailingMargin" secondItem="EOa-0O-YQu" secondAttribute="trailing" id="qFC-Mk-IBC"/>
                             <constraint firstAttribute="trailing" secondItem="fxD-Ww-JUO" secondAttribute="trailing" id="r02-Ed-yeF"/>
                             <constraint firstItem="Krz-1v-1oJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="50" id="s7s-aL-6G3"/>
-                            <constraint firstItem="8pk-av-p6m" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-6" id="tkM-AF-SLm"/>
+                            <constraint firstItem="8pk-av-p6m" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="100" id="sq1-9h-qC7"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="wB4-cV-725" secondAttribute="bottom" constant="8" id="uIf-XF-1YT"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Hbg-Jb-bxF" secondAttribute="bottom" constant="8" id="yGc-Hg-ebw"/>
                         </constraints>
@@ -238,8 +239,6 @@
                                 <exclude reference="jzw-Lt-ryZ"/>
                                 <exclude reference="ODT-Gz-Kws"/>
                                 <exclude reference="s7s-aL-6G3"/>
-                                <exclude reference="Wda-aq-TpV"/>
-                                <exclude reference="eHd-W2-Mnh"/>
                                 <exclude reference="8FL-tG-l5u"/>
                                 <exclude reference="Qe5-a3-RQy"/>
                                 <exclude reference="17S-re-b36"/>
@@ -281,7 +280,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="117" y="340"/>
+            <point key="canvasLocation" x="129" y="379"/>
         </scene>
         <!--Past View Controller-->
         <scene sceneID="tFw-p5-hvy">
