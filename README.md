@@ -22,7 +22,6 @@ The hope is to demonstrate that meshes provide alternative experiences for digit
 * Larger canvas
 
 ## Known Issues
-* Saving currently happens doubly due to a bug in the filtering of messages through the mesh network.
 * After a while of drawing, the app will slow as it stores strokes as raw geometry. I'm looking into occasional caching of the canvas into a bitmap to fix this.
 
 Icons by [Freepik](www.freepik.com)
